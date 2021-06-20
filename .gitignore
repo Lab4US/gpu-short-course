@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# NVIDIA Nsight Compute and Nsight System Reports
+*.sqlite
+*.qdrep
