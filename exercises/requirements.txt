@@ -1,5 +1,5 @@
-numpy
-numba
-scipy
-matplotlib
-cupy-cuda110
+numpy==1.19.5
+numba==0.52.0
+scipy==1.6.0
+matplotlib==3.4.2
+runipy==0.1.5
