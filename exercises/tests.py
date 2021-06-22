@@ -29,12 +29,12 @@ def test_convolve(func, is_h_const):
     print("All tests passed.")
 
     
-def benchmark_convolve(func, n=100, x_size=2**20, h_size=DEFAULT_BENCHMARK_H_SIZE):
+def benchmark_convolve(func, n=100, x_size=2**20, h_size=DEFAULT_BENCHMARK_H_SIZE, dtype=np.float32):
     import time
     times = []
     for i in range(n):
-        x = np.random.rand(x_size).astype(np.float32)
-        h = np.random.rand(h_size).astype(np.float32)
+        x = np.random.rand(x_size).astype(dtype)
+        h = np.random.rand(h_size).astype(dtype)
         start = time.time()
         result = func(x, h)
         end = time.time()
