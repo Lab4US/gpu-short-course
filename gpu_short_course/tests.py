@@ -34,7 +34,7 @@ def benchmark_convolve(func, n=100, x_size=2**20, h_size=DEFAULT_BENCHMARK_H_SIZ
     times = []
     print("Benchmarking the function, please wait...")
     for i in range(n):
-        print(f"Iteration: {i}", end="\r")
+        print(f"Iteration: {i}\r")
         x = np.random.rand(x_size).astype(dtype)
         h = np.random.rand(h_size).astype(dtype)
         start = time.time()
