@@ -3,7 +3,7 @@ import time
 
 DEFAULT_BENCHMARK_H_SIZE = 256
 
-def test_convolve(func, is_h_const):
+def test_convolve(func, is_h_const=False):
     # Test simple case
     x = np.array([0, 1, 2, 3, 4], dtype=np.float32)
     h = np.array([0, 1, 2], dtype=np.float32)
