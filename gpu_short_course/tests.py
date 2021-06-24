@@ -32,7 +32,9 @@ def test_convolve(func, is_h_const=False):
 def benchmark_convolve(func, n=100, x_size=2**20, h_size=DEFAULT_BENCHMARK_H_SIZE, dtype=np.float32):
     import time
     times = []
+    print("Benchmarking the function, please wait...")
     for i in range(n):
+        print(f"Iteration: {i}", end="r")
         x = np.random.rand(x_size).astype(dtype)
         h = np.random.rand(h_size).astype(dtype)
         start = time.time()
