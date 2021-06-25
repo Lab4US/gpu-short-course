@@ -9,7 +9,6 @@ def benchmark_add_vectors(func, n=100, size=2**20, dtype=np.float32):
     times = []
     print("Benchmarking the function, please wait...")
     for i in range(n):
-        print(f"Iteration: {i}\r")
         a = np.random.rand(size).astype(dtype)
         b = np.random.rand(size).astype(dtype)
         start = time.time()
