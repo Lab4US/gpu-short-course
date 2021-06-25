@@ -48,7 +48,8 @@ def test_convolve(func, is_h_const=False):
     print("All tests passed.")
 
     
-def benchmark_convolve(func, n=100, x_size=2**20, h_size=DEFAULT_BENCHMARK_H_SIZE, dtype=np.float32):
+def benchmark_convolve(func, n=100, x_size=2**20, h_size=DEFAULT_BENCHMARK_H_SIZE, dtype=np.float32,
+                       quiet=False):
     import time
     times = []
     print("Benchmarking the function, please wait...")
@@ -59,11 +60,12 @@ def benchmark_convolve(func, n=100, x_size=2**20, h_size=DEFAULT_BENCHMARK_H_SIZ
         result = func(x, h)
         end = time.time()
         times.append(end-start)
-    print("Benchmark result: ")
-    print(f"Average processing time: " 
-        + f"{np.mean(times):.4f} "
-        + f"seconds (+/- {np.std(times).item():.4f}), "
-        + f"median: {np.median(times):.4f}")
+    if not quiet:
+        print("Benchmark result: ")
+        print(f"Average processing time: " 
+            + f"{np.mean(times):.4f} "
+            + f"seconds (+/- {np.std(times).item():.4f}), "
+            + f"median: {np.median(times):.4f}")
     
 
 def test_convolve_const(func, h):  
@@ -93,7 +95,8 @@ def benchmark_convolve_const(func, h, n=100, x_size=2**20):
         + f"median: {np.median(times):.4f}")
 
     
-def benchmark_convolve_2d_input(func, n=100, n_samples=2**10, n_lines=1024, h_size=DEFAULT_BENCHMARK_H_SIZE, dtype=np.float32):
+def benchmark_convolve_2d_input(func, n=100, n_samples=2**10, n_lines=1024, h_size=DEFAULT_BENCHMARK_H_SIZE, 
+                                dtype=np.float32, quiet=False):
     import time
     times = []
     print("Benchmarking, please wait...")
@@ -104,8 +107,9 @@ def benchmark_convolve_2d_input(func, n=100, n_samples=2**10, n_lines=1024, h_si
         result = func(x, h)
         end = time.time()
         times.append(end-start)
-    print("Benchmark result: ")
-    print(f"Average processing time: " 
-        + f"{np.mean(times):.4f} "
-        + f"seconds (+/- {np.std(times).item():.4f}), "
-        + f"median: {np.median(times):.4f}")
+    if not quiet:
+        print("Benchmark result: ")
+        print(f"Average processing time: " 
+            + f"{np.mean(times):.4f} "
+            + f"seconds (+/- {np.std(times).item():.4f}), "
+            + f"median: {np.median(times):.4f}")
