@@ -53,7 +53,6 @@ def benchmark_convolve(func, n=100, x_size=2**20, h_size=DEFAULT_BENCHMARK_H_SIZ
     times = []
     print("Benchmarking the function, please wait...")
     for i in range(n):
-        print(f"Iteration: {i}\r")
         x = np.random.rand(x_size).astype(dtype)
         h = np.random.rand(h_size).astype(dtype)
         start = time.time()
@@ -85,6 +84,24 @@ def benchmark_convolve_const(func, h, n=100, x_size=2**20):
         x = np.random.rand(x_size).astype(np.float32)
         start = time.time()
         result = func(x)
+        end = time.time()
+        times.append(end-start)
+    print("Benchmark result: ")
+    print(f"Average processing time: " 
+        + f"{np.mean(times):.4f} "
+        + f"seconds (+/- {np.std(times).item():.4f}), "
+        + f"median: {np.median(times):.4f}")
+
+    
+def benchmark_convolve_2d_input(func, n=100, n_samples=2**10, n_lines=1024, h_size=DEFAULT_BENCHMARK_H_SIZE, dtype=np.float32):
+    import time
+    times = []
+    print("Benchmarking, please wait...")
+    for i in range(n):
+        x = np.random.rand(n_lines, n_samples).astype(dtype)
+        h = np.random.rand(h_size).astype(dtype)
+        start = time.time()
+        result = func(x, h)
         end = time.time()
         times.append(end-start)
     print("Benchmark result: ")
