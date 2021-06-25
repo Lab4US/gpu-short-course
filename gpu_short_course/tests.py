@@ -3,6 +3,26 @@ import time
 
 DEFAULT_BENCHMARK_H_SIZE = 256
 
+
+def benchmark_add_vectors(func, n=100, x_size=2**20, h_size=DEFAULT_BENCHMARK_H_SIZE, dtype=np.float32):
+    import time
+    times = []
+    print("Benchmarking the function, please wait...")
+    for i in range(n):
+        print(f"Iteration: {i}\r")
+        a = np.random.rand(x_size).astype(dtype)
+        b = np.random.rand(h_size).astype(dtype)
+        start = time.time()
+        result = func(a, b)
+        end = time.time()
+        times.append(end-start)
+    print("Benchmark result: ")
+    print(f"Average processing time: " 
+        + f"{np.mean(times):.4f} "
+        + f"seconds (+/- {np.std(times).item():.4f}), "
+        + f"median: {np.median(times):.4f}")
+
+
 def test_convolve(func, is_h_const=False):
     # Test simple case
     x = np.array([0, 1, 2, 3, 4], dtype=np.float32)
