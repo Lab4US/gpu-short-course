@@ -20,9 +20,8 @@ def _exec_tests(input_func, test_func, benchmark_func, **kwargs):
         benchmark_func(input_func, **kwargs)
 
         
-# ADD_VECTORS
+# ------------------------------------------ ADD_VECTORS
 def benchmark_add_vectors(func, n=100, size=2**20, dtype=np.float32):
-    import time
     times = []
     print("Benchmarking the function, please wait...")
     for i in range(n):
@@ -39,8 +38,12 @@ def benchmark_add_vectors(func, n=100, size=2**20, dtype=np.float32):
         + f"median: {np.median(times):.4f}")
 
     
-# CONVOLVE
-def test_convolve(func, is_h_const=False):
+# ------------------------------------------ CONVOLVE
+def run_convolve(input_func, **kwargs):
+    _exec_tests(input_func, test_convolve, benchmark_convolve, **kwargs)
+
+
+def test_convolve(func):
     # Test simple case
     x = np.array([0, 1, 2, 3, 4], dtype=np.float32)
     h = np.array([0, 1, 2], dtype=np.float32)
@@ -62,13 +65,11 @@ def test_convolve(func, is_h_const=False):
         h = rng.random(h_len).astype(np.float32)
         result = func(x, h)
         np.testing.assert_almost_equal(result, np.convolve(x, h, mode='same'), decimal=5)
-    
     print("All tests passed.")
 
     
 def benchmark_convolve(func, n=100, x_size=2**20, h_size=DEFAULT_BENCHMARK_H_SIZE, dtype=np.float32,
                        quiet=False):
-    import time
     times = []
     print("Benchmarking the function, please wait...")
     for i in range(n):
@@ -86,7 +87,12 @@ def benchmark_convolve(func, n=100, x_size=2**20, h_size=DEFAULT_BENCHMARK_H_SIZ
             + f"median: {np.median(times):.4f}")
     
 
-# CONVOLVE_H_CONST
+# ------------------------------------------ CONVOLVE_H_CONST
+def run_convolve_const(input_func, **kwargs):
+    _exec_tests(input_func, test_convolve_const,
+                benchmark_convolve_const, **kwargs)
+
+
 def test_convolve_const(func, h):  
      # Test if it gives the "same" results as nump.convolve. 
     rng = np.random.default_rng(29062021)
@@ -114,29 +120,10 @@ def benchmark_convolve_const(func, h, n=100, x_size=2**20):
         + f"median: {np.median(times):.4f}")
     
     
-def test_convolve(func, is_h_const=False):
-    # Test simple case
-    x = np.array([0, 1, 2, 3, 4], dtype=np.float32)
-    h = np.array([0, 1, 2], dtype=np.float32)
-    result = func(x, h)
-    np.testing.assert_equal(result, [0, 1, 4, 7, 10])
-    
-    # Test if it gives the "same" results as nump.convolve. 
-    rng = np.random.default_rng(29062021)
-    for i in range(100):
-        intervals = rng.integers(low=1, high=30, size=2)
-        h_len, x_len = sorted(intervals)
-        x = rng.random(x_len).astype(np.float32)
-        h = rng.random(h_len).astype(np.float32)
-        result = func(x, h)
-        np.testing.assert_almost_equal(result, np.convolve(x, h, mode='same'), decimal=5)
-    
-    print("All tests passed.")
-    
-    
-# CONVOLVE_2D_INPUT
-def convolve_2d_input(input_func, **kwargs):
+# ------------------------------------------ CONVOLVE_2D_INPUT
+def run_convolve_2d_input(input_func, **kwargs):
     _exec_tests(input_func, test_convolve_2d_input, benchmark_convolve_2d_input, **kwargs)
+
 
 def test_convolve_2d_input(func, axis, **kwargs):
     x = np.array([[0,   1,  2,  3,  4],
