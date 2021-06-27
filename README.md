@@ -44,7 +44,7 @@ Caution:
 - Google Colab in the free version does not guarantee the availability of the GPU in any particular time.
 - Google Colab in the free version may provide one of the following graphics cards: NVIDIA T4 or NVIDIA K80. NVIDIA T4 may not work with NVPROF profiler. In the future, we will supplement the course with examples for the new profiler required by the latest graphics cards: NVIDIA Nsight Compute and Systems.
 
-Still, it is possible to run Google Colab notebook on on your computer's GPU - you can change the runtime to your local jupyter instance. Install the required software on your computer first (see instruction: *Running the jupyter notebooks on your computer*), the follow the Google Colab [instructions](https://research.google.com/colaboratory/local-runtimes.html).
+Still, it is possible to run Google Colab notebook on on your computer's GPU - you can change the runtime to your local jupyter instance. Install the required software on your computer first (see instruction: *Running the jupyter notebooks on your computer*), then follow the Google Colab [instructions](https://research.google.com/colaboratory/local-runtimes.html).
 
 ## Team
 The course is presented by Dr Marcin Lewandowski and Piotr Jarosik.
