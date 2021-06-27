@@ -27,9 +27,9 @@ Install the following software first to run notebooks:
   4. Activate the environment: `conda activate gpu-course`.
   5. Install requirements: `pip install -r exercies/requirements.txt`. 
   6. Run: `jupyter lab`. 
-  7. Open one of the exercise notebooks and Run all cells.
+  7. Open one of the exercise notebooks and run all cells.
 
-It's also possible to run via Google Colab website (see instructions above) instead Jupyter Lab. 
+It's also possible to run via Google Colab website (see instructions above) instead of Jupyter Lab. 
 
 ### Running the jupyter notebooks on Google Colab.
 
