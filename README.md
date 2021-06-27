@@ -2,6 +2,8 @@
 
 This is a repository for the “Digital Signal Processing with GPUs — Introduction to Parallel Programming” short-course.
 
+Note: this course is still a work-in-progress effort, so in the future we will supplement it with new materials and examples. To be informed about any changes in the future, you can press the "Star" and "Watch" buttons, which you can find in the upper right corner. Thanks!
+
 ## Contents
 - slides — decks of slides for the presentation; 
 - exercises — Jupyter notebooks with CUDA code examples to run.
