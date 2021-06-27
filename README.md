@@ -23,7 +23,7 @@ In both cases the links will be provided by email to the registered participants
 Install the following software first to run notebooks:
 - [CUDA Toolkit 11.0](https://developer.nvidia.com/cuda-11.0-download-archive),
 - Python 3.8: we recommend using [Miniconda](https://docs.conda.io/en/latest/miniconda.html) instead of using Python distribution available in your operating system. Miniconda gives you a possibility to create an isolated Python environment, with it's own set of software and packages. Any changes you will make in the environment will **not** impact your system-wide configuration.
-  1. Install Minconda fpr Python3.8.
+  1. Install Minconda for Python 3.8.
   2. Open your shell (Linux or MacOS) or Anaconda Powershell Prompt (Windows).
   3. Create a new environment: `conda create -n gpu-course python=3.8`.
   4. Activate the environment: `conda activate gpu-course`.
