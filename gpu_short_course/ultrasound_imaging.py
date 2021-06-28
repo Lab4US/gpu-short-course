@@ -152,7 +152,7 @@ def init_beamformer(data, context, x_grid=None, z_grid=None):
 def _create_hilbert_coeffs(n):
     ndim = 2
     axis = -1
-    h = cp.zeros(n)
+    h = cp.zeros(n).astype(cp.float32)
     if n % 2 == 0:
         h[0] = h[n // 2] = 1
         h[1:n // 2] = 2
@@ -166,12 +166,12 @@ def _create_hilbert_coeffs(n):
 
 
 def hilbert(data, context, stream):
-    data = cp.asarray(data)
     h = context.get("hilbert_coeffs", None)
     if h is None or h.shape[-1] != data.shape[-1]:
         h = _create_hilbert_coeffs(data.shape[-1])
         context["hilbert_coeffs"] = h
     with stream:
+        data = cp.asarray(data)
         xf = fftpack.fft(data, axis=-1)
         result = fftpack.ifft(xf*h, axis=-1)
         return cp.abs(result)
