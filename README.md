@@ -25,10 +25,10 @@ Install the following software first to run notebooks:
 - Python 3.8: we recommend using [Miniconda](https://docs.conda.io/en/latest/miniconda.html) instead of using Python distribution available in your operating system. Miniconda gives you a possibility to create an isolated Python environment, with it's own set of software and packages. Any changes you will make in the environment will **not** impact your system-wide configuration.
   1. Install Minconda for Python 3.8.
   2. Open your shell (Linux or MacOS) or Anaconda Powershell Prompt (Windows).
-  3. Create a new environment: `conda create -n gpu-course python=3.8`.
-  4. Activate the environment: `conda activate gpu-course`.
-  5. Install requirements: `pip install -r exercies/requirements.txt`. 
-  6. Run: `jupyter lab`. 
+  3. Create a new environment: `conda create -n gpu-course python=3.8`
+  4. Activate the environment: `conda activate gpu-course`
+  5. Install requirements: `pip install -r exercies/requirements.txt` 
+  6. Run: `jupyter lab`
   7. Open one of the exercise notebooks and run all cells.
 
 It's also possible to run via Google Colab website (see instructions above) instead of Jupyter Lab. 
