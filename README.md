@@ -27,7 +27,7 @@ Install the following software first to run notebooks:
   2. Open your shell (Linux or MacOS) or Anaconda Powershell Prompt (Windows).
   3. Create a new environment: `conda create -n gpu-course python=3.8`
   4. Activate the environment: `conda activate gpu-course`
-  5. Install requirements: `pip install -r exercies/requirements.txt` 
+  5. Install requirements: `pip install -r exercises/requirements.txt` 
   6. Run: `jupyter lab`
   7. Open one of the exercise notebooks and run all cells.
 
