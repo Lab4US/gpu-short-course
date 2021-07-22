@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from scipy.io import loadmat
 import pickle
 from cupyx.scipy import fftpack
-
+import cupyx.scipy.ndimage
 
 def create_grid(x_mm, z_mm, nx=128, nz=128):
     xgrid = np.linspace(x_mm[0] * 1e-3, x_mm[1] * 1e-3, nx)
@@ -262,10 +262,19 @@ def show_flow(xgrid, zgrid, bmode, color, power,
     plt.show
 
 
-def filter_wall_clutter(input_signal, Wn=0.2, N=32):
+def filter_wall_clutter_cpu(input_signal, Wn=0.2, N=32):
     sos = signal.butter(N, Wn, 'high', output='sos')
     output_signal = signal.sosfiltfilt(sos, input_signal, axis=0)
     return output_signal.astype(np.complex64)
 
+
+def filter_wall_clutter_gpu(input_signal, Wn=0.2, N=33):
+    if N % 2 == 0:
+        N = N+1
+    b = signal.firwin(N, Wn, pass_zero=False)
+    input_signal = cp.array(input_signal)
+    b = cp.array(b)
+    output_signal = cupyx.scipy.ndimage.convolve1d(input_signal, b, axis=0)
+    return output_signal.astype(np.complex64)
 
 
