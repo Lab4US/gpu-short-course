@@ -194,3 +194,78 @@ def display_bmode(img, x=None, z=None):
     ax.set_xlabel('OX [mm]')
     ax.set_ylabel('OZ [mm]')
     ax.imshow(img, extent=x + z[::-1], cmap='gray', vmin=-30, vmax=0)
+
+
+def dB(data, mx=1):
+    return 20*np.log10(data/mx)
+
+
+def iq2bmode(iq):
+    env = np.abs(iq)
+    mx = np.nanmax(env)
+    env = dB(env, mx=mx)
+    return env
+
+def show_flow(xgrid, zgrid, bmode, color, power,
+               doppler_type='color',
+               power_threshold=20,
+               color_limit=(-1.5, 1.5)):
+
+    # convert grid from [m] to [mm]
+    xgrid = xgrid*1e3
+    zgrid = zgrid*1e3
+    extent = (min(xgrid), max(xgrid), min(zgrid), max(zgrid))
+
+    # calculate data aspect for proper image proportions
+    dx = xgrid[1]-xgrid[0]
+    dz = zgrid[1]-zgrid[0]
+    data_aspect = dz/dx
+
+    if doppler_type == 'color':
+        cmap = 'bwr'
+        title = 'color doppler'
+        img = np.copy(color)
+        img[power < power_threshold] = None
+        vmin = color_limit[0]
+        vmax = color_limit[1]
+
+    elif doppler_type == 'power':
+        cmap = 'hot'
+        title = 'power doppler'
+        img = dB(power)
+        img[power < power_threshold] = None
+        vmin = None
+        vmax = None
+
+    else:
+        raise ValueError("The 'imgtype' parameter should be one of the following: "
+                         "'bmode', 'color', 'power'. ")
+
+    fig, axes = plt.subplots()
+    axes.imshow(bmode,
+                interpolation='bicubic',
+                aspect=data_aspect,
+                cmap='gray',
+                extent=extent)
+
+    axes.imshow(img,
+                interpolation='bicubic',
+                aspect=data_aspect,
+                cmap=cmap,
+                extent=extent,
+                vmin=vmin, vmax=vmax
+               )
+
+    plt.xlabel('[mm]')
+    plt.ylabel('[mm]')
+    plt.title(title)
+    plt.show
+
+
+def filter_wall_clutter(input_signal, Wn=0.2, N=32):
+    sos = signal.butter(N, Wn, 'high', output='sos')
+    output_signal = signal.sosfiltfilt(sos, input_signal, axis=0)
+    return output_signal.astype(np.complex64)
+
+
+
