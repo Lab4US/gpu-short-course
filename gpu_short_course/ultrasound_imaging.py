@@ -206,6 +206,13 @@ def iq2bmode(iq):
     env = dB(env, mx=mx)
     return env
 
+
+def iq2bmode_gpu(iq, mx=1):
+    env = cp.abs(iq)
+    mx = cp.nanmax(env)
+    env = 20*cp.log10(env/mx)
+    return env
+
 def show_flow(bmode, color, power,
                 xgrid=None,
                 zgrid=None,
@@ -250,8 +257,7 @@ def show_flow(bmode, color, power,
         xlabel = 'lines'
         ylabel = 'samples'
 
-    powerdb = dB(power)
-    mask = powerdb < power_threshold
+    mask = dB(power) < power_threshold
     img = np.copy(color)
 
     if doppler_type == 'color':
@@ -341,7 +347,6 @@ def filter_wall_clutter_gpu(input_signal, Wn=0.2, N=33):
     if N % 2 == 0:
         N = N+1
     b = signal.firwin(N, Wn, pass_zero=False)
-    input_signal = cp.array(input_signal)
     b = cp.array(b)
     output_signal = cupyx.scipy.ndimage.convolve1d(input_signal, b, axis=0)
     return output_signal.astype(np.complex64)
