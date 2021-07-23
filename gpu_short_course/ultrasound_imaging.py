@@ -243,7 +243,7 @@ def show_flow(bmode, color, power,
         # convert grid from [m] to [mm]
         xgrid = xgrid*1e3
         zgrid = zgrid*1e3
-        extent = (min(xgrid), max(xgrid), min(zgrid), max(zgrid))
+        extent = (min(xgrid), max(xgrid), max(zgrid), min(zgrid))
 
         # calculate data aspect for proper image proportions
         dx = xgrid[1]-xgrid[0]
@@ -251,6 +251,7 @@ def show_flow(bmode, color, power,
         data_aspect = dz/dx
         xlabel = '[mm]'
         ylabel = '[mm]'
+
     else:
         data_aspect = None
         extent = None
