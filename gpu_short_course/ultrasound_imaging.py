@@ -206,40 +206,101 @@ def iq2bmode(iq):
     env = dB(env, mx=mx)
     return env
 
-def show_flow(xgrid, zgrid, bmode, color, power,
-               doppler_type='color',
-               power_threshold=20,
-               color_limit=(-1.5, 1.5)):
+def show_flow(bmode, color, power,
+                xgrid=None,
+                zgrid=None,
+                doppler_type='power',
+                power_threshold=26,
+                color_limit=None):
+    '''
+    The function show blood flow on the b-mode image.
 
-    # convert grid from [m] to [mm]
-    xgrid = xgrid*1e3
-    zgrid = zgrid*1e3
-    extent = (min(xgrid), max(xgrid), min(zgrid), max(zgrid))
+    :param bmode: bmode data array,
+    :param color: color data array,
+    :param power: power data array,
+    :param xgrid: (optional) vector of 'x' coordinates,
+    :param zgrid: (optional) vector of 'z' coordinates,
+    :param doppler_type:(optional) type of flow presentation,
+        the following types are possible:
+        1. 'color' - raw color estimate [radians],
+        2. 'doppler frequency' - color scaled in [kHz],
+        3. 'power' - raw power estimate,
+        4. 'speed' - color scaled in [mm/s],
+    :param power_threshold: flow estimate pixels corresponding to
+                            power below power_threshold will not be shown
+    :param color_limit: two element tuple with color limit
 
-    # calculate data aspect for proper image proportions
-    dx = xgrid[1]-xgrid[0]
-    dz = zgrid[1]-zgrid[0]
-    data_aspect = dz/dx
+    '''
+
+    if xgrid is not None and zgrid is not None:
+        # convert grid from [m] to [mm]
+        xgrid = xgrid*1e3
+        zgrid = zgrid*1e3
+        extent = (min(xgrid), max(xgrid), min(zgrid), max(zgrid))
+
+        # calculate data aspect for proper image proportions
+        dx = xgrid[1]-xgrid[0]
+        dz = zgrid[1]-zgrid[0]
+        data_aspect = dz/dx
+        xlabel = '[mm]'
+        ylabel = '[mm]'
+    else:
+        data_aspect = None
+        extent = None
+        xlabel = 'lines'
+        ylabel = 'samples'
+
+    powerdb = dB(power)
+    mask = powerdb < power_threshold
+    img = np.copy(color)
 
     if doppler_type == 'color':
         cmap = 'bwr'
         title = 'color doppler'
-        img = np.copy(color)
-        img[power < power_threshold] = None
-        vmin = color_limit[0]
-        vmax = color_limit[1]
+        cbar_label = '[radians]'
+        img[mask] = None
+        if color_limit is None:
+            color_limit = (-1., 1.)
+
+    elif doppler_type == 'doppler frequency':
+        cmap = 'bwr'
+        title = 'color doppler'
+        cbar_label = '[kHz]'
+        img[mask] = None
+        img = img*1e-3 # [Hz] -> [kHz]
+        if color_limit is None:
+            color_limit = (-1, 1)
+
+    elif doppler_type == 'speed':
+        cmap = 'bwr'
+        title = 'color doppler'
+        cbar_label = '[mm/s]'
+        img[mask] = None
+        img = img*1e3 # [m] -> [mm]  
+        if color_limit is None:
+            color_limit = (-40, 40)
 
     elif doppler_type == 'power':
         cmap = 'hot'
         title = 'power doppler'
+        cbar_label = '[dB]'
         img = dB(power)
-        img[power < power_threshold] = None
-        vmin = None
-        vmax = None
+        img[mask] = None
+        color_limit = None
 
     else:
         raise ValueError("The 'imgtype' parameter should be one of the following: "
                          "'bmode', 'color', 'power'. ")
+
+
+    if color_limit is not None:
+        vmin = color_limit[0]
+        vmax = color_limit[1]
+
+    else:
+        vmin = None
+        vmax = None
+
 
     fig, axes = plt.subplots()
     axes.imshow(bmode,
@@ -248,7 +309,7 @@ def show_flow(xgrid, zgrid, bmode, color, power,
                 cmap='gray',
                 extent=extent)
 
-    axes.imshow(img,
+    flow = axes.imshow(img,
                 interpolation='bicubic',
                 aspect=data_aspect,
                 cmap=cmap,
@@ -256,9 +317,17 @@ def show_flow(xgrid, zgrid, bmode, color, power,
                 vmin=vmin, vmax=vmax
                )
 
-    plt.xlabel('[mm]')
-    plt.ylabel('[mm]')
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
     plt.title(title)
+    plt.tight_layout()
+    cbar = plt.colorbar(flow,
+                        location='bottom',
+                        pad=0.2,
+                        aspect=20,
+                        fraction=0.05,
+                        )
+    cbar.set_label(cbar_label)
     plt.show
 
 
