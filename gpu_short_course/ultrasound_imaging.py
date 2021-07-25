@@ -218,7 +218,8 @@ def show_flow(bmode, color, power,
                 zgrid=None,
                 doppler_type='power',
                 power_threshold=26,
-                color_limit=None):
+                color_limit=None,
+                bmode_limit=(-60,0)):
     '''
     The function show blood flow on the b-mode image.
 
@@ -233,9 +234,11 @@ def show_flow(bmode, color, power,
         2. 'doppler frequency' - color scaled in [kHz],
         3. 'power' - raw power estimate,
         4. 'speed' - color scaled in [mm/s],
-    :param power_threshold: flow estimate pixels corresponding to
-                            power below power_threshold will not be shown
-    :param color_limit: two element tuple with color limit
+    :param power_threshold: (optional) flow estimate pixels corresponding to
+                            power below power_threshold will not be shown,
+    :param color_limit: (optional) two element tuple with color limit,
+    :param bmode_limit: (optional) two element tuple with bmode limit.
+
 
     '''
 
@@ -314,7 +317,9 @@ def show_flow(bmode, color, power,
                 interpolation='bicubic',
                 aspect=data_aspect,
                 cmap='gray',
-                extent=extent)
+                extent=extent,
+                vmin=bmode_limit[0],
+                vmax=bmode_limit[1])
 
     flow = axes.imshow(img,
                 interpolation='bicubic',
