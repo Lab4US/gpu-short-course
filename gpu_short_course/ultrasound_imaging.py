@@ -217,7 +217,7 @@ def show_flow(bmode, color, power,
                 xgrid=None,
                 zgrid=None,
                 doppler_type='power',
-                power_threshold=26,
+                power_limit=26,
                 color_limit=None,
                 bmode_limit=(-60,0)):
     '''
@@ -234,8 +234,8 @@ def show_flow(bmode, color, power,
         2. 'doppler frequency' - color scaled in [kHz],
         3. 'power' - raw power estimate,
         4. 'speed' - color scaled in [mm/s],
-    :param power_threshold: (optional) flow estimate pixels corresponding to
-                            power below power_threshold will not be shown,
+    :param power_limit: (optional) flow estimate pixels corresponding to
+                            power outside power_limit will not be shown,
     :param color_limit: (optional) two element tuple with color limit,
     :param bmode_limit: (optional) two element tuple with bmode limit.
 
@@ -261,7 +261,7 @@ def show_flow(bmode, color, power,
         xlabel = 'lines'
         ylabel = 'samples'
 
-    mask = dB(power) < power_threshold
+    mask = (dB(power) < power_limit[0]) |  (dB(power) >= power_limit[1])
     img = np.copy(color)
 
     if doppler_type == 'color':
