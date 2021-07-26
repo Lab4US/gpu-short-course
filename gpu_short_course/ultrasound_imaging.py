@@ -9,6 +9,7 @@ from scipy.io import loadmat
 import pickle
 from cupyx.scipy import fftpack
 import cupyx.scipy.ndimage
+from matplotlib import animation
 
 def create_grid(x_mm, z_mm, nx=128, nz=128):
     xgrid = np.linspace(x_mm[0] * 1e-3, x_mm[1] * 1e-3, nx)
@@ -356,5 +357,31 @@ def filter_wall_clutter_gpu(input_signal, Wn=0.2, N=33):
     b = cp.array(b)
     output_signal = cupyx.scipy.ndimage.convolve1d(input_signal, b, axis=0)
     return output_signal.astype(np.complex64)
+
+def show_cineloop(imgs, value_range=None, cmap=None, figsize=None,
+                  interval=50, xlabel="Azimuth (mm)", ylabel="Depth (mm)",
+                  extent=None):
+
+    def init():
+        img.set_data(imgs[0])
+        return (img,)
+
+    def animate(frame):
+        img.set_data(imgs[frame])
+        return (img,)
+
+    fig, ax = plt.subplots()
+    if figsize is not None:
+        fig.set_size_inches(figsize)
+    img = ax.imshow(imgs[0], cmap=cmap, extent=extent)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    if value_range is not None:
+        img.set_clim(*value_range)
+
+    return animation.FuncAnimation(
+        fig, animate, init_func=init, frames=len(imgs),
+        interval=interval, blit=True)
+
 
 
