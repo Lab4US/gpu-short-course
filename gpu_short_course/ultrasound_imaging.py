@@ -300,7 +300,7 @@ def show_flow(bmode, color, power,
 
     else:
         raise ValueError("The 'imgtype' parameter should be one of the following: "
-                         "'bmode', 'color', 'power'. ")
+                         "'color', 'power', 'speed', 'doppler frequency'. ")
 
 
     if color_limit is not None:
