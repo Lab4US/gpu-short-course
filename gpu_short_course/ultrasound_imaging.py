@@ -11,6 +11,10 @@ from cupyx.scipy import fftpack
 import cupyx.scipy.ndimage
 from matplotlib import animation
 
+
+
+
+
 def create_grid(x_mm, z_mm, nx=128, nz=128):
     xgrid = np.linspace(x_mm[0] * 1e-3, x_mm[1] * 1e-3, nx)
     zgrid = np.linspace(z_mm[0] * 1e-3, z_mm[1] * 1e-3, nz)
@@ -214,26 +218,62 @@ def iq2bmode_gpu(iq, mx=1):
     env = 20*cp.log10(env/mx)
     return env
 
-def show_flow(bmode, color, power,
-                xgrid=None,
-                zgrid=None,
-                doppler_type='power',
-                power_limit=26,
-                color_limit=None,
-                bmode_limit=(-60,0)):
+def power_mask(data, power_dB, power_limit):
+    mask = (power_dB < power_limit[0]) | (power_dB >= power_limit[1])
+    img = np.copy(data)
+    img[mask] = None
+    return img
+
+def scale_doppler(doppler_data, doppler_type):
+
+    if doppler_type == 'color':
+        doppler_scaled = doppler_data
+
+    elif doppler_type == 'doppler frequency':
+        doppler_scaled = doppler_data*1e-3
+
+    elif doppler_type == 'speed':
+        doppler_scaled = doppler_data*1e3
+
+    elif doppler_type == 'power':
+        doppler_scaled = doppler_data
+
+    else:
+        raise ValueError("The 'doppler_type' parameter should be one of the following: "
+                         "'color', 'power', 'speed', 'doppler frequency'. ")
+    return doppler_scaled
+
+def prepare_doppler(doppler_array, power_dB, power_limit, doppler_type):
+    doppler_array = scale_doppler(doppler_array, doppler_type)
+    return  power_mask(doppler_array, power_dB, power_limit)
+
+
+
+
+
+def show_flow(
+    bmode, doppler_array, power_dB,
+    xgrid=None,
+    zgrid=None,
+    doppler_type='power',
+    power_limit=(26,70),
+    color_limit=None,
+    bmode_limit=(-60,0),
+):
+
     '''
     The function show blood flow on the b-mode image.
 
     :param bmode: bmode data array,
-    :param color: color data array,
-    :param power: power data array,
-    :param xgrid: (optional) vector of 'x' coordinates,
-    :param zgrid: (optional) vector of 'z' coordinates,
+    :param doppler_array: doppler data array (i.e. raw color, doppler frequency or blood speed),
+    :param power_dB: power data array (in [dB]),
+    :param xgrid: (optional) vector of 'x' coordinates in [m],
+    :param zgrid: (optional) vector of 'z' coordinates in [m],
     :param doppler_type:(optional) type of flow presentation,
         the following types are possible:
         1. 'color' - raw color estimate [radians],
         2. 'doppler frequency' - color scaled in [kHz],
-        3. 'power' - raw power estimate,
+        3. 'power' - power estimate in [dB],
         4. 'speed' - color scaled in [mm/s],
     :param power_limit: (optional) flow estimate pixels corresponding to
                             power outside power_limit will not be shown,
@@ -242,6 +282,11 @@ def show_flow(bmode, color, power,
 
 
     '''
+
+
+    if doppler_type == 'power':
+        doppler_array = power_dB
+
 
     if xgrid is not None and zgrid is not None:
         # convert grid from [m] to [mm]
@@ -262,14 +307,12 @@ def show_flow(bmode, color, power,
         xlabel = 'lines'
         ylabel = 'samples'
 
-    mask = (dB(power) < power_limit[0]) |  (dB(power) >= power_limit[1])
-    img = np.copy(color)
 
+    # set appropriate parameters for plt.imshow()
     if doppler_type == 'color':
         cmap = 'bwr'
         title = 'color doppler'
         cbar_label = '[radians]'
-        img[mask] = None
         if color_limit is None:
             color_limit = (-1., 1.)
 
@@ -277,8 +320,6 @@ def show_flow(bmode, color, power,
         cmap = 'bwr'
         title = 'color doppler'
         cbar_label = '[kHz]'
-        img[mask] = None
-        img = img*1e-3 # [Hz] -> [kHz]
         if color_limit is None:
             color_limit = (-1, 1)
 
@@ -286,8 +327,6 @@ def show_flow(bmode, color, power,
         cmap = 'bwr'
         title = 'color doppler'
         cbar_label = '[mm/s]'
-        img[mask] = None
-        img = img*1e3 # [m] -> [mm]  
         if color_limit is None:
             color_limit = (-40, 40)
 
@@ -295,14 +334,11 @@ def show_flow(bmode, color, power,
         cmap = 'hot'
         title = 'power doppler'
         cbar_label = '[dB]'
-        img = dB(power)
-        img[mask] = None
         color_limit = None
 
     else:
-        raise ValueError("The 'imgtype' parameter should be one of the following: "
+        raise ValueError("The 'doppler_type' parameter should be one of the following: "
                          "'color', 'power', 'speed', 'doppler frequency'. ")
-
 
     if color_limit is not None:
         vmin = color_limit[0]
@@ -312,36 +348,110 @@ def show_flow(bmode, color, power,
         vmin = None
         vmax = None
 
+    # scale doppler data and mask pixels corresponding to too low or too high power (outside power_limit)
+    doppler_data = prepare_doppler(doppler_array, power_dB, power_limit, doppler_type)
 
-    fig, axes = plt.subplots()
-    axes.imshow(bmode,
-                interpolation='bicubic',
-                aspect=data_aspect,
-                cmap='gray',
-                extent=extent,
-                vmin=bmode_limit[0],
-                vmax=bmode_limit[1])
+    # draw
+    bmode_img = plt.imshow(
+        bmode,
+        interpolation='bicubic',
+        aspect=data_aspect,
+        cmap='gray',
+        extent=extent,
+        vmin=bmode_limit[0],
+        vmax=bmode_limit[1],
+    )
 
-    flow = axes.imshow(img,
-                interpolation='bicubic',
-                aspect=data_aspect,
-                cmap=cmap,
-                extent=extent,
-                vmin=vmin, vmax=vmax
-               )
+    flow_img = plt.imshow(
+        doppler_data,
+        interpolation='bicubic',
+        aspect=data_aspect,
+        cmap=cmap,
+        extent=extent,
+        vmin=vmin, vmax=vmax,
+    )
 
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.title(title)
     plt.tight_layout()
-    cbar = plt.colorbar(flow,
-                        location='bottom',
-                        pad=0.2,
-                        aspect=20,
-                        fraction=0.05,
-                        )
-    cbar.set_label(cbar_label)
-    plt.show
+    plt.colorbar(
+        flow_img,
+        location='bottom',
+        pad=0.2,
+        aspect=20,
+        fraction=0.05,
+        label=cbar_label,
+    )
+    return bmode_img, flow_img, doppler_data
+
+
+def show_flow_cineloop(
+    bmode, doppler_array, power_dB,
+    xgrid=None,
+    zgrid=None,
+    doppler_type='power',
+    power_limit=(26,70),
+    color_limit=None,
+    bmode_limit=(-60,0)):
+
+    '''
+    The function show animation of blood flow on the b-mode image.
+
+    :param bmode: bmode data array,
+    :param doppler_array: doppler data array (i.e. raw color, doppler frequency or blood speed),
+    :param power_dB: power data array (in [dB]),
+    :param xgrid: (optional) vector of 'x' coordinates in [m],
+    :param zgrid: (optional) vector of 'z' coordinates in [m],
+    :param doppler_type:(optional) type of flow presentation,
+        the following types are possible:
+        1. 'color' - raw color estimate [radians],
+        2. 'doppler frequency' - color scaled in [kHz],
+        3. 'power' - power estimate in [dB],
+        4. 'speed' - color scaled in [mm/s],
+    :param power_limit: (optional) flow estimate pixels corresponding to
+                            power outside power_limit will not be shown,
+    :param color_limit: (optional) two element tuple with color limit,
+    :param bmode_limit: (optional) two element tuple with bmode limit.
+
+    '''
+
+    def init():
+        bimg.set_data(bmode[:, :, 0])
+        fimg.set_data(doppler_img)
+        return (bimg, fimg, )
+
+    def animate(frame):
+        doppler_img = prepare_doppler(
+            doppler_array[:, :, frame],
+            power_dB[:, :, frame],
+            power_limit,
+            doppler_type)
+
+        bimg.set_data(bmode[:, :, frame])
+        fimg.set_data(doppler_img)
+        return (bimg, fimg, )
+
+    if doppler_type == 'power':
+        doppler_array = power_dB
+
+    fig = plt.figure()
+    fig.set_facecolor('white')
+    bimg, fimg, doppler_img = show_flow(
+        bmode[:, :, 0],
+        doppler_array[:, :, 0],
+        power_dB[:, :, 0],
+        xgrid=xgrid,
+        zgrid=zgrid,
+        doppler_type=doppler_type,
+        power_limit=power_limit,
+        color_limit=color_limit,
+        bmode_limit=bmode_limit)
+
+    return animation.FuncAnimation(
+        fig, animate, init_func=init, frames=bmode.shape[-1],
+        interval=100, blit=True)
+
 
 
 def filter_wall_clutter_cpu(input_signal, Wn=0.2, N=32):
