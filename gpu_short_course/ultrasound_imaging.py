@@ -238,9 +238,13 @@ def scale_doppler(doppler_data, doppler_type):
     elif doppler_type == 'power':
         doppler_scaled = doppler_data
 
+    elif doppler_type == 'noflow':
+        doppler_scaled = doppler_data*np.nan
+
     else:
-        raise ValueError("The 'doppler_type' parameter should be one of the following: "
-                         "'color', 'power', 'speed', 'doppler frequency'. ")
+        raise ValueError(
+        "The 'doppler_type' parameter should be one of the following: "
+        "'color', 'power', 'speed', 'doppler frequency' or 'noflow'. ")
     return doppler_scaled
 
 def prepare_doppler(doppler_array, power_dB, power_limit, doppler_type):
@@ -256,16 +260,16 @@ def show_flow(
     xgrid=None,
     zgrid=None,
     doppler_type='power',
-    power_limit=(26,70),
+    power_limit=(26,56),
     color_limit=None,
-    bmode_limit=(-60,0),
-):
+    bmode_limit=(-60,0)):
 
-    '''
+    """
     The function show blood flow on the b-mode image.
 
     :param bmode: bmode data array,
-    :param doppler_array: doppler data array (i.e. raw color, doppler frequency or blood speed),
+    :param doppler_array: doppler data array (i.e. raw color,
+                          doppler frequency or blood speed),
     :param power_dB: power data array (in [dB]),
     :param xgrid: (optional) vector of 'x' coordinates in [m],
     :param zgrid: (optional) vector of 'z' coordinates in [m],
@@ -275,18 +279,16 @@ def show_flow(
         2. 'doppler frequency' - color scaled in [kHz],
         3. 'power' - power estimate in [dB],
         4. 'speed' - color scaled in [mm/s],
+        5. 'noflow' - bmode only,
     :param power_limit: (optional) flow estimate pixels corresponding to
                             power outside power_limit will not be shown,
     :param color_limit: (optional) two element tuple with color limit,
     :param bmode_limit: (optional) two element tuple with bmode limit.
 
-
-    '''
-
+    """
 
     if doppler_type == 'power':
         doppler_array = power_dB
-
 
     if xgrid is not None and zgrid is not None:
         # convert grid from [m] to [mm]
@@ -336,9 +338,17 @@ def show_flow(
         cbar_label = '[dB]'
         color_limit = None
 
+    elif doppler_type == 'noflow':
+        cmap = 'gray'
+        title = 'B-mode'
+        cbar_label = '[dB]'
+        color_limit = bmode_limit
+
     else:
-        raise ValueError("The 'doppler_type' parameter should be one of the following: "
-                         "'color', 'power', 'speed', 'doppler frequency'. ")
+        raise ValueError(
+            "The 'doppler_type' parameter should be one of the following: "
+            "'color', 'power', 'speed', 'doppler frequency'. "
+            )
 
     if color_limit is not None:
         vmin = color_limit[0]
@@ -395,7 +405,7 @@ def show_flow_cineloop(
     color_limit=None,
     bmode_limit=(-60,0)):
 
-    '''
+    """
     The function show animation of blood flow on the b-mode image.
 
     :param bmode: bmode data array,
@@ -414,7 +424,7 @@ def show_flow_cineloop(
     :param color_limit: (optional) two element tuple with color limit,
     :param bmode_limit: (optional) two element tuple with bmode limit.
 
-    '''
+    """
 
     def init():
         bimg.set_data(bmode[:, :, 0])
