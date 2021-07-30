@@ -10,7 +10,7 @@ import pickle
 from cupyx.scipy import fftpack
 import cupyx.scipy.ndimage
 from matplotlib import animation
-
+from IPython.display import HTML
 
 
 
@@ -457,6 +457,8 @@ def show_flow_cineloop(
         power_limit=power_limit,
         color_limit=color_limit,
         bmode_limit=bmode_limit)
+
+    HTML(anim.to_jshtml())
 
     return animation.FuncAnimation(
         fig, animate, init_func=init, frames=bmode.shape[-1],
