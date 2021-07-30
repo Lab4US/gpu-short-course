@@ -458,11 +458,14 @@ def show_flow_cineloop(
         color_limit=color_limit,
         bmode_limit=bmode_limit)
 
+    anim = animation.FuncAnimation(
+                    fig, animate,
+                    init_func=init,
+                    frames=bmode.shape[-1],
+                    interval=100, blit=True)
     HTML(anim.to_jshtml())
 
-    return animation.FuncAnimation(
-        fig, animate, init_func=init, frames=bmode.shape[-1],
-        interval=100, blit=True)
+    return anim
 
 
 
