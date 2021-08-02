@@ -466,13 +466,13 @@ def show_flow_cineloop(
 
 
 
-def filter_wall_clutter_cpu(input_signal, Wn=0.2, N=32):
+def filter_wall_clutter_cpu(input_signal, Wn=0.2, N=32, axis=0):
     sos = signal.butter(N, Wn, 'high', output='sos')
-    output_signal = signal.sosfiltfilt(sos, input_signal, axis=0)
+    output_signal = signal.sosfiltfilt(sos, input_signal, axis=axis)
     return output_signal.astype(np.complex64)
 
 
-def filter_wall_clutter_gpu(input_signal, Wn=0.2, N=33, axis=-1):
+def filter_wall_clutter_gpu(input_signal, Wn=0.2, N=33, axis=0):
     if N % 2 == 0:
         N = N+1
     b = signal.firwin(N, Wn, pass_zero=False)
