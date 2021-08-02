@@ -472,12 +472,15 @@ def filter_wall_clutter_cpu(input_signal, Wn=0.2, N=32):
     return output_signal.astype(np.complex64)
 
 
-def filter_wall_clutter_gpu(input_signal, Wn=0.2, N=33):
+def filter_wall_clutter_gpu(input_signal, Wn=0.2, N=33, axis=-1):
     if N % 2 == 0:
         N = N+1
     b = signal.firwin(N, Wn, pass_zero=False)
     b = cp.array(b)
-    output_signal = cupyx.scipy.ndimage.convolve1d(input_signal, b, axis=0)
+    output_signal = cupyx.scipy.ndimage.convolve1d(
+        input_signal,
+        b,
+        axis=axis)
     return output_signal.astype(np.complex64)
 
 def show_cineloop(imgs, value_range=None, cmap=None, figsize=None,
