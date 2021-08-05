@@ -112,6 +112,9 @@ def benchmark_convolve_const(func, h, n=100, x_size=2**20):
         start = time.time()
         result = func(x)
         end = time.time()
+
+        cpu_result = np.convolve(x, h, mode='same')
+        np.testing.assert_almost_equal(result, cpu_result, decimal=4)
         times.append(end-start)
     print("Benchmark result: ")
     print(f"Average processing time: " 
