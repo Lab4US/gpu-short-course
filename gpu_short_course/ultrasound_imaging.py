@@ -12,8 +12,6 @@ import cupyx.scipy.ndimage
 from matplotlib import animation
 
 
-
-
 def create_grid(x_mm, z_mm, nx=128, nz=128):
     xgrid = np.linspace(x_mm[0] * 1e-3, x_mm[1] * 1e-3, nx)
     zgrid = np.linspace(z_mm[0] * 1e-3, z_mm[1] * 1e-3, nz)
@@ -246,12 +244,10 @@ def scale_doppler(doppler_data, doppler_type):
         "'color', 'power', 'speed', 'doppler frequency' or 'noflow'. ")
     return doppler_scaled
 
+
 def prepare_doppler(doppler_array, power_dB, power_limit, doppler_type):
     doppler_array = scale_doppler(doppler_array, doppler_type)
     return  power_mask(doppler_array, power_dB, power_limit)
-
-
-
 
 
 def show_flow(
