@@ -187,6 +187,12 @@ def to_bmode(envelope, stream):
         return envelope
 
 
+def to_bmode_cpu(rf_beamformed):
+    envelope = np.abs(signal.hilbert(rf_beamformed, axis=0))
+    res = 20*np.log10(envelope/np.max(envelope))
+    return res
+
+
 def display_bmode(img, x=None, z=None):
     if x is None:
         x = X_MM
