@@ -131,3 +131,12 @@ dmypy.json
 # NVIDIA Nsight Compute and Nsight System Reports
 *.sqlite
 *.qdrep
+
+# Exercises/cupy scripts and data generated in notebooks.
+exercises/cupy/**/*.py
+exercises/cupy/**/*.gif
+
+
+*.swp
+*.nvvp
+*.pkl
