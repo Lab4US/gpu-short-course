@@ -9,7 +9,7 @@ def register_host_buffer(buffer):
 
 
 def unregister_host_buffer(buffer):
-    for elements in buffer:
+    for element in buffer:
         ptr = element.ctypes.data
         cp.cuda.runtime.hostUnregister(ptr)
 
