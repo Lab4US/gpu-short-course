@@ -140,3 +140,4 @@ exercises/cupy/**/*.gif
 *.swp
 *.nvvp
 *.pkl
+*.npz
