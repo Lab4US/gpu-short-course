@@ -20,6 +20,7 @@ RUN apt-get update \
     fonts-liberation \
     pandoc \
     python-dev \
+    tini \
 #    texlive-fonts-extra \
 #    texlive-fonts-recommended \
 #    texlive-generic-recommended \
@@ -36,16 +37,17 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
 # Configure environment
-ENV CONDA_DIR=/opt/conda \
-    SHELL=/bin/bash \
-    IMAGE_USER="student" \
-    USER_UID=1000 \
-    USER_GID=100 \
-    LC_ALL=en_US.UTF-8 \
-    LANG=en_US.UTF-8 \
-    LANGUAGE=en_US.UTF-8 \
-    PATH=$CONDA_DIR/bin:$PATH \
-    HOME=/home/$IMAGE_USER
+ENV CONDA_DIR=/opt/conda
+ENV SHELL_NAME=bash
+ENV SHELL="/bin/${SHELL_NAME}"
+ENV IMAGE_USER="student"
+ENV USER_UID=1000
+ENV USER_GID=100
+ENV LC_ALL=en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US.UTF-8
+ENV PATH=$CONDA_DIR/bin:$PATH
+ENV HOME="/home/${IMAGE_USER}"
 
 ENV PYTHON_VERSION=3.8 \
     MINICONDA_VERSION=py38_4.9.2 \
@@ -87,43 +89,35 @@ RUN cd /tmp && \
 WORKDIR $HOME
 
 # Install short-course requirements.
-RUN $CONDA_DIR/bin/conda env create -f ius-2021-gpu-short-course/conda-env-linux.yml && \
+RUN $CONDA_DIR/bin/conda env update --name base --file ius-2021-gpu-short-course/conda-env-linux.yml --prune && \
+    $CONDA_DIR/bin/pip install ./ius-2021-gpu-short-course && \
     $CONDA_DIR/bin/conda list python | grep '^python ' | tr -s ' ' | cut -d '.' -f 1,2 | sed 's/$/.*/' >> $CONDA_DIR/conda-meta/pinned && \
-    $CONDA_DIR/bin/conda install --quiet --yes conda && \
-    $CONDA_DIR/bin/conda update --all --quiet --yes && \
+#    $CONDA_DIR/bin/conda install --quiet --yes conda && \
+#    $CONDA_DIR/bin/conda update --all --quiet --yes && \
     $CONDA_DIR/bin/conda clean --all -f -y && \
-    npm cache clean --force && \
-    jupyter notebook --generate-config && \
+    $CONDA_DIR/bin/jupyter notebook --generate-config && \
     rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     rm -rf /home/$IMAGE_USER/.cache/yarn && \
-    # Make the ius-gpu environment the default one
-    echo "conda activate ius-gpu" >> ~/.bashrc && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$IMAGE_USER
 
-
-# Instal tini (will be used as an entrypoint).
-RUN conda install --quiet --yes 'tini=0.19.0' && \
-    conda list tini | grep tini | tr -s ' ' | cut -d ' ' -f 1,2 >> $CONDA_DIR/conda-meta/pinned && \
-    conda clean --all -f -y && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
 
 EXPOSE 8888
 
 # Configure container startup
 ENTRYPOINT ["tini", "-g", "--"]
-CMD ["start-notebook.sh"]
+CMD ["start-notebook.sh", "--no-browser"]
 
 # Add local files as late as possible to avoid cache busting
 COPY ./utils/start.sh /usr/local/bin/
 COPY ./utils/start-notebook.sh /usr/local/bin/
-COPY ./utils/start-singleuser.sh /usr/local/bin/
 COPY ./utils/jupyter_notebook_config.py /etc/jupyter/
 
 # Fix permissions on /etc/jupyter as root
 USER root
 RUN fix-permissions /etc/jupyter/
+RUN chmod +x /usr/local/bin/start-notebook.sh
+RUN chmod +x /usr/local/bin/start.sh
 
 USER $USER_UID
 
