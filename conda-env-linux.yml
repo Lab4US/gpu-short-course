@@ -39,7 +39,6 @@ dependencies:
     - defusedxml==0.7.1
     - entrypoints==0.3
     - fastrlock==0.6
-    - gpu-short-course==0.0.1
     - h5py==3.3.0
     - idna==3.2
     - ipykernel==6.0.3
