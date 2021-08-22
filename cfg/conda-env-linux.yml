@@ -13,3 +13,5 @@ dependencies:
     - runipy==0.1.5
     - jupyter_contrib_nbextensions==0.5.1
     - jupyter_nbextensions_configurator==0.4.1
+    - nodejs==14.8.0
+    - npm==6.14.7
