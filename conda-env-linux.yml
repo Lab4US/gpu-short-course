@@ -48,6 +48,7 @@ dependencies:
     - jinja2==3.0.1
     - json5==0.9.6
     - jsonschema==3.2.0
+    - jupyter==1.0.0
     - jupyter-client==6.1.12
     - jupyter-contrib-core==0.3.3
     - jupyter-contrib-nbextensions==0.5.1
