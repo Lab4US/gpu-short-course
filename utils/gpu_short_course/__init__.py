@@ -1,6 +1,6 @@
 import cupy as cp
 
-from utils.gpu_short_course.tests import (
+from gpu_short_course.tests import (
     run_convolve,
     run_convolve_const,
     run_convolve_2d_input
