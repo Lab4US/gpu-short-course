@@ -31,7 +31,8 @@ RUN apt-get update \
     unzip \
     nano \
     ffmpeg \
-    imagemagick\
+    imagemagick \
+    nsight-systems-2020.3.4 \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
@@ -48,6 +49,7 @@ ENV LC_ALL=en_US.UTF-8
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
 ENV PATH=$CONDA_DIR/bin:$PATH
+ENV PATH=/opt/nvidia/nsight-systems/2020.3.4/bin/:$PATH
 ENV HOME="/home/${IMAGE_USER}"
 
 ENV PYTHON_VERSION=3.8 \
@@ -91,7 +93,9 @@ RUN cd /tmp && \
 WORKDIR $HOME
 
 # Install short-course requirements.
-RUN $CONDA_DIR/bin/conda env update --name base --file ${GPU_SHORT_COURSE_REPO_NAME}/conda-env-linux.yml --prune && \
+RUN $CONDA_DIR/bin/conda env update --name base --file ${GPU_SHORT_COURSE_REPO_NAME}/cfg/conda-env-linux.yml --prune && \
+    $CONDA_DIR/bin/pip install cupy-cuda110==9.3.0 && \
+    # Initialize cupy (and that can take some time).
     $CONDA_DIR/bin/pip install ./${GPU_SHORT_COURSE_REPO_NAME}/utils && \
     $CONDA_DIR/bin/conda list python | grep '^python ' | tr -s ' ' | cut -d '.' -f 1,2 | sed 's/$/.*/' >> $CONDA_DIR/conda-meta/pinned && \
 #    $CONDA_DIR/bin/conda install --quiet --yes conda && \
