@@ -15,4 +15,3 @@ dependencies:
     - jupyter_contrib_nbextensions==0.5.1
     - jupyter_nbextensions_configurator==0.4.1
     - nbconvert==5.6.1
-    - cupy==9.0.0
