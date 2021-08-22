@@ -163,4 +163,7 @@ def show_cineloop(imgs, value_range=None, cmap=None, figsize=None,
         interval=interval, blit=True)
 
 
-
+def to_bmode_cpu(rf_beamformed):
+    envelope = np.abs(signal.hilbert(rf_beamformed, axis=0))
+    res = 20*np.log10(envelope/np.max(envelope))
+    return res
