@@ -8,4 +8,5 @@ setup(name='gpu_short_course',
       author='us4us Ltd.',
       author_email='support@us4us.eu',
       packages=['gpu_short_course'],
+      package_data={'gpu_short_course': ["*.cc"]},
 )
