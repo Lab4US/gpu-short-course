@@ -92,7 +92,7 @@ WORKDIR $HOME
 
 # Install short-course requirements.
 RUN $CONDA_DIR/bin/conda env update --name base --file ${GPU_SHORT_COURSE_REPO_NAME}/conda-env-linux.yml --prune && \
-    $CONDA_DIR/bin/pip install ./${GPU_SHORT_COURSE_REPO_NAME} && \
+    $CONDA_DIR/bin/pip install ./${GPU_SHORT_COURSE_REPO_NAME}/utils && \
     $CONDA_DIR/bin/conda list python | grep '^python ' | tr -s ' ' | cut -d '.' -f 1,2 | sed 's/$/.*/' >> $CONDA_DIR/conda-meta/pinned && \
 #    $CONDA_DIR/bin/conda install --quiet --yes conda && \
 #    $CONDA_DIR/bin/conda update --all --quiet --yes && \
