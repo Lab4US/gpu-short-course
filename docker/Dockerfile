@@ -31,6 +31,7 @@ RUN apt-get update \
     unzip \
     nano \
     ffmpeg \
+    imagemagick\
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
@@ -54,7 +55,8 @@ ENV PYTHON_VERSION=3.8 \
     MINICONDA_MD5=122c8c9beb51e124ab32a0fa6426c656 \
     CONDA_VERSION=4.9.2 \
     GPU_SHORT_COURSE_VERSION=1.0 \
-    GPU_SHORT_COURSE_BRANCH=develop
+    GPU_SHORT_COURSE_BRANCH=develop \
+    GPU_SHORT_COURSE_REPO_NAME=ius-2021-gpu-short-course
 
 # Add a script that we will use to correct permissions after running certain commands
 ADD ./utils/fix-permissions /usr/local/bin/fix-permissions
@@ -73,7 +75,7 @@ USER $USER_UID
 WORKDIR $HOME
 
 # Setup work directory for backward-compatibility
-RUN git clone --branch develop https://github.com/us4useu/ius-2021-gpu-short-course.git && \
+RUN git clone --branch develop https://github.com/us4useu/${GPU_SHORT_COURSE_REPO_NAME}.git && \
     fix-permissions /home/$IMAGE_USER
 
 RUN cd /tmp && \
@@ -89,13 +91,15 @@ RUN cd /tmp && \
 WORKDIR $HOME
 
 # Install short-course requirements.
-RUN $CONDA_DIR/bin/conda env update --name base --file ius-2021-gpu-short-course/conda-env-linux.yml --prune && \
-    $CONDA_DIR/bin/pip install ./ius-2021-gpu-short-course && \
+RUN $CONDA_DIR/bin/conda env update --name base --file ${GPU_SHORT_COURSE_REPO_NAME}/conda-env-linux.yml --prune && \
+    $CONDA_DIR/bin/pip install ./${GPU_SHORT_COURSE_REPO_NAME} && \
     $CONDA_DIR/bin/conda list python | grep '^python ' | tr -s ' ' | cut -d '.' -f 1,2 | sed 's/$/.*/' >> $CONDA_DIR/conda-meta/pinned && \
 #    $CONDA_DIR/bin/conda install --quiet --yes conda && \
 #    $CONDA_DIR/bin/conda update --all --quiet --yes && \
     $CONDA_DIR/bin/conda clean --all -f -y && \
     $CONDA_DIR/bin/jupyter notebook --generate-config && \
+    # jupyter lab extensions
+    $CONDA_DIR/bin/jupyter labextension install @aquirdturtle/collapsible_headings && \
     rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     rm -rf /home/$IMAGE_USER/.cache/yarn && \
     fix-permissions $CONDA_DIR && \
@@ -105,6 +109,7 @@ RUN $CONDA_DIR/bin/conda env update --name base --file ius-2021-gpu-short-course
 EXPOSE 8888
 
 # Configure container startup
+WORKDIR $HOME/${GPU_SHORT_COURSE_REPO_NAME}
 ENTRYPOINT ["tini", "-g", "--"]
 CMD ["start-notebook.sh", "--no-browser"]
 
