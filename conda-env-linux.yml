@@ -91,8 +91,6 @@ dependencies:
     - pytz==2021.1
     - pyyaml==5.4.1
     - pyzmq==22.2.1
-    - requests==2.26.0
-    - requests-unixsocket==0.2.0
     - runipy==0.1.5
     - scipy==1.5.0
     - send2trash==1.7.1
