@@ -6,7 +6,8 @@ Note: this course is still a work-in-progress effort, so in the future we will s
 
 ## Contents
 - slides — decks of slides for the presentation; 
-- exercises — Jupyter notebooks with CUDA code examples to run.
+- exercises — Jupyter notebooks with CUDA code examples to run,
+- cfg - configuration files 
 
 ## Organization
 The short-course is organized by [us4us Ltd.](http://us4us.eu/) and [IPPT PAN](http://www.ippt.pan.pl/en/), and will be presented:
@@ -18,26 +19,46 @@ In both cases the links will be provided by email to the registered participants
 
 ## Jupyter notebooks
 
-### Running the jupyter notebooks on your computer.
+In this section we describe how you can get and run the exercise jupyter notebooks.
+
+### Using ius_gpu_short_course Docker image (recommended)
+
+We recommend using `pjarosikus4useu/ius_gpu_short_course:1.0.0` Docker image.
+
+Before running the exercise jupyter notebooks please install [docker](https://docs.docker.com/get-docker/) on your computer. To be able to use the GPU as part of the docker container, it is necessary to install the following additional software:
+
+- on Linux: install [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html),
+- on Windows: install [NVIDIA CUDA on Windows Subsystem for Linux](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)
+
+Then just run the following command:
+
+```
+sudo docker run -p 8888:8888  -it --gpus all pjarosikus4us/ius_gpu_short_course:1.0.0
+```
+
+Note for Windows user: if for some reason you encounter a problem with the installation of CUDA for WSL (e.g. your GPU is not supported by WSL), another option might be to use the Miniconda environment on your host machine (see below).
+
+### Running jupyter notebooks in Miniconda
 
 Install the following software first to run notebooks:
-- [CUDA Toolkit 11.0](https://developer.nvidia.com/cuda-11.0-download-archive),
+- we recommend using [CUDA Toolkit 11.0](https://developer.nvidia.com/cuda-11.0-download-archive),
 - Python 3.8: we recommend using [Miniconda](https://docs.conda.io/en/latest/miniconda.html) instead of using Python distribution available in your operating system. Miniconda gives you a possibility to create an isolated Python environment, with it's own set of software and packages. Any changes you will make in the environment will **not** impact your system-wide configuration.
   1. Install Minconda for Python 3.8.
   2. Open your shell (Linux or MacOS) or Anaconda Powershell Prompt (Windows).
   3. Create a new environment: `conda create -n gpu-course python=3.8`
   4. Activate the environment: `conda activate gpu-course`
-  5. Install requirements: `pip install -r exercises/requirements.txt` 
-  6. Run: `jupyter lab`
-  7. Open one of the exercise notebooks and run all cells.
+  5. Clone this repository on your computer.
+  6. Install requirements: `conda env update --name gpu-course --file cfg/conda-env-linux.yml --prune && pip install cupy-cuda110==9.3.0 && pip install ` 
+  9. Run: `jupyter lab`
+  10. Open one of the exercise notebooks and run all cells.
 
 It's also possible to run via Google Colab website (see instructions above) instead of Jupyter Lab. 
 
-### Running the jupyter notebooks on Google Colab.
+### Running the jupyter notebooks on Google Colab
 
 If you don't have an access to NVIDIA GPU card, you can try running the notebooks on Google Colab.
 
-Copy the notebooks from [here](https://drive.google.com/drive/folders/1Ea0IAGuDkcP0V2-i5YrmJ2RvY4Lo4mI1?usp=sharing) to some location on your Google Drive. 
+Copy the notebooks from this repository to some location on your Google Drive. 
 
 Please remember to change runtime to GPU before running notebooks (e.g. see instructions [here](https://www.geeksforgeeks.org/how-to-use-google-colab/)). 
 
@@ -49,7 +70,7 @@ Caution:
 Still, it is possible to run Google Colab notebook on on your computer's GPU - you can change the runtime to your local jupyter instance. Install the required software on your computer first (see instruction: *Running the jupyter notebooks on your computer*), then follow the Google Colab [instructions](https://research.google.com/colaboratory/local-runtimes.html).
 
 ## Team
-The course is presented by Dr Marcin Lewandowski and Piotr Jarosik.
+The course is presented by Dr Marcin Lewandowski, Billy Yiu and Piotr Jarosik.
 
 Course support team includes: Mateusz Walczak, Piotr Karwat, Ziemowit Klimonda and Julia Lewandowska.
 
