@@ -134,6 +134,7 @@ dmypy.json
 
 # Exercises/cupy scripts and data generated in notebooks.
 exercises/cupy/**/*.py
+exercises/numba/**/*.py
 exercises/cupy/**/*.gif
 
 
