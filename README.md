@@ -70,7 +70,7 @@ Caution:
 Still, it is possible to run Google Colab notebook on on your computer's GPU - you can change the runtime to your local jupyter instance. Install the required software on your computer first (see instruction: *Running the jupyter notebooks on your computer*), then follow the Google Colab [instructions](https://research.google.com/colaboratory/local-runtimes.html).
 
 ## Team
-The course is presented by Dr Marcin Lewandowski, Billy Yiu and Piotr Jarosik.
+The course is presented by Dr Marcin Lewandowski, Piotr Jarosik and Billy Yiu.
 
 Course support team includes: Mateusz Walczak, Piotr Karwat, Ziemowit Klimonda and Julia Lewandowska.
 
