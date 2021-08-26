@@ -18,38 +18,24 @@ Note: To be informed about any changes in the future, you can press the "Star" a
 ## Organization
 The short-course is organized by [us4us Ltd.](http://us4us.eu/), [IPPT PAN](http://www.ippt.pan.pl/en/), and [LITMUS, University of Waterloo](https://lit-mus.org/about/). The pre-recorded lectures are available for IUS 2021 "Ultrasound Signal Processing with GPUs — Introduction to Parallel Programming" short-course participants.
 
+All the IUS 2021 "Ultrasound Signal Processing with GPUs — Introduction to Parallel Programming" short-course exercise recordings were done on .
+
 ## Jupyter notebooks
 
 In this section we describe three possible options how to get and run the exercise jupyter notebooks.
 
-### Option #1: Docker image
-
-Requirements:
-- Linux: make sure that your GPU and operating system are supported by NVIDIA Container Toolkit (check the list available [here](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#linux-distributions))
-- Windows: make sure your GPU and OS are supported by CUDA Toolkit on WSL (check requirements [here](https://docs.nvidia.com/cuda/wsl-user-guide/index.html#wsl2-system-requirements))
-
-Before running the exercise jupyter notebooks please install [docker](https://docs.docker.com/get-docker/) on your computer. To be able to use the GPU as part of the docker container, it is also necessary to install the following software:
-
-- on Linux: install [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
-- on Windows: install [NVIDIA CUDA on Windows Subsystem for Linux](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)
-
-Then just run the following command in Linux or WSL terminal:
-
-```
-sudo docker run -p 8888:8888  -it --gpus all us4useu/ius_gpu_short_course:1.0.0
-```
-
-Note: if for some reason you encounter a problem with installing CUDA Container Toolkit or NVIDIA CUDA on WSL (e.g. your GPU is not supported by WSL), consider using the Miniconda environment on your host machine (see instructions below).
-
-### Option #2: running jupyter notebooks in Miniconda
+### Option #1: running jupyter notebooks in Miniconda
 
 We recommend using [CUDA Toolkit 11.0](https://developer.nvidia.com/cuda-11.0-download-archive).
 
 Python 3.8: we recommend using [Miniconda](https://docs.conda.io/en/latest/miniconda.html) instead of using Python distribution available in your operating system. Miniconda gives you a possibility to create an isolated Python environment, with it's own set of software and packages. Any changes you will make in the environment will **not** impact your system-wide configuration.
 
 1. Install Minconda for Python 3.8.
-2. Open your shell (Linux) or Anaconda Powershell Prompt (Windows).
-3. Create a new conda environment: 
+2. Install `wget` program:
+  - Linux: use your package manager to get the app, for example on Ubuntu: `sud apt install wget`
+  - Windows: download the following [executable](https://eternallybored.org/misc/wget/1.21.1/64/wget.exe) and put it into a directory listed in your `PATH` environment variable. 
+3. Open your shell (Linux) or Anaconda Powershell Prompt (Windows).
+4. Create a new conda environment: 
 ```
 conda create -n gpu-course python=3.8
 ```
@@ -63,33 +49,34 @@ conda install git
 git clone https://github.com/us4useu/ius-2021-gpu-short-course.git
 cd ius-2021-gpu-short-course
 ```
-11. Install requirements. **Note**: if you are using a version of CUDA other than 11.0, be sure to change the version of cuda in the name of cupy package (i.e. the cupy-cuda110 to cupy-cudaXY, where X.Y is the version of CUDA you currently use).
+10. Install conda environment requirements:
+  - Linux: `conda env update --name gpu-course --file cfg/conda-requirements-linux.yml --prune` 
+  - Windows: `conda env update --name gpu-course --file cfg/conda-requirements-windows.yml --prune` 
+11. Install the required Python packages. **Note**: if you are using a version of CUDA other than 11.0, be sure to change the version of cuda in the name of cupy package (i.e. the cupy-cuda110 to cupy-cudaXY, where X.Y is the version of CUDA you currently use).
 ```
-conda env update --name gpu-course --file cfg/conda-requirements.yml --prune 
 pip install -r cfg/pip-requirements.txt
 pip install cupy-cuda110==9.3.0
-pip install .
+pip install -e ./utils 
 ```
 13. Run: `jupyter lab`
-14. Open one of the exercise notebooks and run all cells to test if everything works correctly.
+14. Open one of the exercise notebooks with solutions and run all cells to test if everything works correctly.
 
 
-### Option #3: running the jupyter notebooks on Google Colab
+### Option #2: Docker image
 
-It's also possible to run via Google Colab website (see instructions above) instead of using Jupyter Lab on your computer. 
+Requirements:
+- Linux: make sure that your GPU and operating system are supported by NVIDIA Container Toolkit (check the list available [here](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#linux-distributions))
+- Windows: make sure your GPU and OS are supported by CUDA Toolkit on WSL (check requirements [here](https://docs.nvidia.com/cuda/wsl-user-guide/index.html#wsl2-system-requirements))
 
-If you don't have an access to NVIDIA GPU card, you can try running the notebooks on Google Colab.
+Before running the exercise jupyter notebooks please install [docker](https://docs.docker.com/get-docker/) on your computer. To be able to use the GPU as part of the docker container, it is also necessary to install the following software:
 
-Copy the notebooks from this repository to some location on your Google Drive. 
+- on Linux: install [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
+- on Windows: install [NVIDIA CUDA on Windows Subsystem for Linux](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)
 
-Please remember to change runtime to GPU before running notebooks (e.g. see instructions [here](https://www.geeksforgeeks.org/how-to-use-google-colab/)). 
-
-Caution:
-
-- Google Colab in the free version does not guarantee the availability of the GPU in any particular time.
-- Google Colab in the free version may provide one of the following graphics cards: NVIDIA T4 or NVIDIA K80. NVIDIA T4 may not work with NVPROF profiler. In the future, we will supplement the course with examples for the new profiler required by the latest graphics cards: NVIDIA Nsight Compute and Systems.
-
-Still, it is possible to run Google Colab notebook on on your computer's GPU - you can change the runtime to your local jupyter instance. Install the required software on your computer first (see instruction: *Running the jupyter notebooks on your computer*), then follow the Google Colab [instructions](https://research.google.com/colaboratory/local-runtimes.html).
+Then just run the following command in Linux:
+```
+sudo docker run -p 8888:8888  -it --gpus all us4useu/ius_gpu_short_course:1.0.0 
+```
 
 ## Team
 The course is presented by Dr Marcin Lewandowski, Piotr Jarosik and Billy Yiu.
