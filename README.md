@@ -63,6 +63,32 @@ pip install cupy-cuda110==9.3.0
 pip install -e ./utils 
 ```
 9. Run: `jupyter lab`
+
+You should see an output similar to the one below:
+```
+[I 2021-08-26 18:28:10.973 ServerApp] jupyterlab | extension was successfully linked.
+[W 2021-08-26 18:28:10.990 ServerApp] The 'min_open_files_limit' trait of a ServerApp instance expected an int, not the NoneType None.
+[I 2021-08-26 18:28:11.255 ServerApp] nbclassic | extension was successfully loaded.
+[I 2021-08-26 18:28:11.256 LabApp] JupyterLab extension loaded from C:\Users\username\anaconda3\envs\gpu-course\lib\site-packages\jupyterlab
+[I 2021-08-26 18:28:11.257 LabApp] JupyterLab application directory is C:\Users\username\anaconda3\envs\gpu-course\share\jupyter\lab
+[I 2021-08-26 18:28:11.261 ServerApp] jupyterlab | extension was successfully loaded.
+[I 2021-08-26 18:28:11.262 ServerApp] Serving notebooks from local directory: C:\Users\username\repos\ius-2021-gpu-short-course
+[I 2021-08-26 18:28:11.262 ServerApp] Jupyter Server 1.10.2 is running at:
+[I 2021-08-26 18:28:11.263 ServerApp] http://localhost:8888/lab?token=ff2ac4b0004ce179455a5e48b24defd541a0869aee7fe33d
+[I 2021-08-26 18:28:11.263 ServerApp]  or http://127.0.0.1:8888/lab?token=ff2ac4b0004ce179455a5e48b24defd541a0869aee7fe33d
+[I 2021-08-26 18:28:11.265 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 2021-08-26 18:28:11.353 ServerApp]
+
+    To access the server, open this file in a browser:
+        file:///C:/Users/username/AppData/Roaming/jupyter/runtime/jpserver-24164-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:8888/lab?token=ff2ac4b0004ce179455a5e48b24defd541a0869aee7fe33d
+     or http://127.0.0.1:8888/lab?token=ff2ac4b0004ce179455a5e48b24defd541a0869aee7fe33d
+[I 2021-08-26 18:28:14.352 LabApp] Build is up to date
+
+
+```
+
 10. Open one of the exercise notebooks with solutions and run all cells to test if everything works correctly.
 
 
