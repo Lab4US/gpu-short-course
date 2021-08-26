@@ -27,7 +27,7 @@ Before running the exercise jupyter notebooks please install [docker](https://do
 - on Linux: install [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
   - make sure that your operating system is supported by NVIDIA Container Toolkit (check the list available [here](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#linux-distributions))
 - on Windows: install [NVIDIA CUDA on Windows Subsystem for Linux](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)
-  - make sure your GPU and OS is supported by CUDA Toolkit on WSL: [requirements](https://docs.nvidia.com/cuda/wsl-user-guide/index.html#wsl2-system-requirements)
+  - make sure your GPU and OS is supported by CUDA Toolkit on WSL (check requirements [here](https://docs.nvidia.com/cuda/wsl-user-guide/index.html#wsl2-system-requirements))
 
 Then just run the following command in Linux or WSL terminal:
 
