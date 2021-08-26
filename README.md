@@ -26,7 +26,7 @@ All the IUS 2021 "Ultrasound Signal Processing with GPUs — Introduction to Par
 
 ## Exercise notebooks
 
-In this section we describe three possible options how to get and run the exercise Jupyter notebooks.
+In this section we describe options how to get and run the exercise Jupyter notebooks.
 
 ### Option #1: running jupyter notebooks in Miniconda (Linux or Windows)
 
