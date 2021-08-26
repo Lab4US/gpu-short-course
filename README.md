@@ -41,27 +41,27 @@ Python 3.8: we recommend using [Miniconda](https://docs.conda.io/en/latest/minic
 ```
 conda create -n gpu-course python=3.8
 ```
-7. Activate the environment: 
+5. Activate the environment: 
 ```
 conda activate gpu-course
 ```
-9. Clone this repository on your computer.
+6. Clone this repository on your computer.
 ```
 conda install git
 git clone https://github.com/us4useu/ius-2021-gpu-short-course.git
 cd ius-2021-gpu-short-course
 ```
-10. Install conda environment requirements:
+7. Install conda environment requirements:
   - Linux: `conda env update --name gpu-course --file cfg/conda-requirements-linux.yml --prune` 
   - Windows: `conda env update --name gpu-course --file cfg/conda-requirements-windows.yml --prune` 
-11. Install the required Python packages. **Note**: if you are using a version of CUDA other than 11.0, be sure to change the version of cuda in the name of cupy package (i.e. the cupy-cuda110 to cupy-cudaXY, where X.Y is the version of CUDA you currently use).
+8. Install the required Python packages. **Note**: if you are using a version of CUDA other than 11.0, be sure to change the version of cuda in the name of cupy package (i.e. the cupy-cuda110 to cupy-cudaXY, where X.Y is the version of CUDA you currently use).
 ```
 pip install -r cfg/pip-requirements.txt
 pip install cupy-cuda110==9.3.0
 pip install -e ./utils 
 ```
-13. Run: `jupyter lab`
-14. Open one of the exercise notebooks with solutions and run all cells to test if everything works correctly.
+9. Run: `jupyter lab`
+10. Open one of the exercise notebooks with solutions and run all cells to test if everything works correctly.
 
 
 ### Option #2: Docker image
