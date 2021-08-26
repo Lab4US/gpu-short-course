@@ -93,7 +93,8 @@ RUN cd /tmp && \
 WORKDIR $HOME
 
 # Install short-course requirements.
-RUN $CONDA_DIR/bin/conda env update --name base --file ${GPU_SHORT_COURSE_REPO_NAME}/cfg/conda-env-linux.yml --prune && \
+RUN $CONDA_DIR/bin/conda env update --name base --file ${GPU_SHORT_COURSE_REPO_NAME}/cfg/conda-requirements.yml --prune && \
+    $CONDA_DIR/bin/pip install -r ${GPU_SHORT_COURSE_REPO_NAME}/cfg/pip-requirements.txt && \
     $CONDA_DIR/bin/pip install cupy-cuda110==9.3.0 && \
     # Initialize cupy (and that can take some time).
     $CONDA_DIR/bin/pip install ./${GPU_SHORT_COURSE_REPO_NAME}/utils && \
