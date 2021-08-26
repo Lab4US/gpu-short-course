@@ -24,9 +24,9 @@ All the IUS 2021 "Ultrasound Signal Processing with GPUs — Introduction to Par
 - Ubuntu 18.04 LTS
 - NVIDIA Titan X GPU
 
-## Jupyter notebooks
+## Exercise notebooks
 
-In this section we describe three possible options how to get and run the exercise jupyter notebooks.
+In this section we describe three possible options how to get and run the exercise Jupyter notebooks.
 
 ### Option #1: running jupyter notebooks in Miniconda (Linux or Windows)
 
@@ -53,7 +53,7 @@ conda install git
 git clone https://github.com/us4useu/ius-2021-gpu-short-course.git
 cd ius-2021-gpu-short-course
 ```
-7. Install conda environment requirements:
+7. Install in your conda environment the required software:
   - Linux: `conda env update --name gpu-course --file cfg/conda-requirements-linux.yml --prune` 
   - Windows: `conda env update --name gpu-course --file cfg/conda-requirements-windows.yml --prune` 
 8. Install the required Python packages. **Note**: if you are using a version of CUDA other than 11.0, be sure to change the version of cuda in the name of cupy package (i.e. the cupy-cuda110 to cupy-cudaXY, where X.Y is the version of CUDA you currently use).
@@ -66,7 +66,7 @@ pip install -e ./utils
 10. Open one of the exercise notebooks with solutions and run all cells to test if everything works correctly.
 
 
-### Option #2: Docker image (Linux)
+### Option #2: Docker image (Linux only)
 
 Requirements:
 - Linux: make sure that your GPU and operating system are supported by NVIDIA Container Toolkit (check the list available [here](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#linux-distributions))
@@ -76,17 +76,84 @@ Before running the exercise jupyter notebooks please install [docker](https://do
 - on Linux: install [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
 
 Then just run the following command in Linux:
+``` 
+sudo docker run -p 8888:8888  -it --gpus all --name gpu_course us4useu/ius_gpu_short_course:1.0.0 
 ```
-sudo docker run -p 8888:8888  -it --gpus all us4useu/ius_gpu_short_course:1.0.0 
+
+
+You should see an output similar to the one below:
 ```
+Unable to find image 'us4useu/ius_gpu_short_course:1.0.0' locally
+1.0.0: Pulling from us4useu/ius_gpu_short_course
+16ec32c2132b: Already exists
+ab49a37cda04: Already exists
+b23b1cc2f66c: Already exists
+de57da913f8f: Already exists
+06b8d7b81090: Already exists
+5e0c69981f75: Already exists
+aa4d68208e9a: Already exists
+cdfffea224b0: Already exists
+6aea04a7cdf1: Already exists
+41e54634e42b: Already exists
+f2afcbd4e723: Pull complete
+09f295b33740: Pull complete
+8c6ebaa88ded: Pull complete
+a5ada5e02db8: Pull complete
+3e6037c11955: Pull complete
+926d9389a815: Pull complete
+a8484209f71f: Pull complete
+6fb4d747b5b4: Pull complete
+9547bfd6657a: Pull complete
+6eadc574abfe: Pull complete
+7a9ec0c5114e: Pull complete
+6e50ce083ad1: Pull complete
+08d362a2355f: Pull complete
+88aa9ffa018d: Pull complete
+5fac73b69e4e: Pull complete
+bb3b949600c9: Pull complete
+Digest: sha256:14dd7ea7c3a8943b88bd937fe3e52741fe51fec282822d62d16b00765effbd00
+Status: Downloaded newer image for us4useu/ius_gpu_short_course:1.0.0
+Running as student
+Executing the command: jupyter lab --no-browser
+[I 2021-08-26 11:10:19.003 ServerApp] jupyterlab | extension was successfully linked.
+[I 2021-08-26 11:10:19.019 ServerApp] Writing Jupyter server cookie secret to /home/student/.local/share/jupyter/runtime/jupyter_cookie_secret
+[I 2021-08-26 11:10:19.217 ServerApp] nbclassic | extension was successfully linked.
+[I 2021-08-26 11:10:19.275 ServerApp] nbclassic | extension was successfully loaded.
+[I 2021-08-26 11:10:19.277 LabApp] JupyterLab extension loaded from /opt/conda/lib/python3.8/site-packages/jupyterlab
+[I 2021-08-26 11:10:19.277 LabApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 2021-08-26 11:10:19.281 ServerApp] jupyterlab | extension was successfully loaded.
+[I 2021-08-26 11:10:19.282 ServerApp] Serving notebooks from local directory: /home/student/ius-2021-gpu-short-course
+[I 2021-08-26 11:10:19.282 ServerApp] Jupyter Server 1.10.2 is running at:
+[I 2021-08-26 11:10:19.282 ServerApp] http://47ebf762524f:8888/lab?token=1f048e5cfd1b9bd592885ab6c599e3c7e6c62a7168a7d7ce
+[I 2021-08-26 11:10:19.282 ServerApp]  or http://127.0.0.1:8888/lab?token=1f048e5cfd1b9bd592885ab6c599e3c7e6c62a7168a7d7ce
+[I 2021-08-26 11:10:19.282 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 2021-08-26 11:10:19.287 ServerApp]
+    To access the server, open this file in a browser:
+        file:///home/student/.local/share/jupyter/runtime/jpserver-7-open.html
+    Or copy and paste one of these URLs:
+        http://47ebf762524f:8888/lab?token=1f048e5cfd1b9bd592885ab6c599e3c7e6c62a7168a7d7ce
+     or http://127.0.0.1:8888/lab?token=1f048e5cfd1b9bd592885ab6c599e3c7e6c62a7168a7d7ce
+```
+
+Now, copy and paste the Jupyter Lab URL (`http://127.0.0.1:8888/lab?token=1f048e5cfd1b9bd592885ab6c599e3c7e6c62a7168a7d7ce` in our case) to your web browser. 
+
+To stop the container: just press CTRL + C, or run `docker stop gpu_course`. To start the container again, use `docker start -i gpu_course`.
+
+
+To access docker container data (e.g. NVVP report results), you can use `docker cp` command, for example:
+
+```
+sudo docker cp gpu_course:/home/student/ius-2021-gpu-short-course/exercises/cupy/1_CUDA_programming_model/solutions/nvvp_example.nvvp .
+```
+
 
 ## Team
 The course is presented by Dr Marcin Lewandowski, Piotr Jarosik and Billy Yiu.
 
-Course support team includes: Mateusz Walczak, Piotr Karwat, Ziemowit Klimonda and Julia Lewandowska.
+Course support team includes: Ziemowit Klimonda, Mateusz Walczak, Piotr Karwat and Julia Lewandowska.
 
 ## License
-Materials for the short-course „Digital Signal Processing with GPUs — Introduction to Parallel Programming” are licensed by us4us Ltd. the IPPT PAN under the Creative Commons Attribution-NonCommercial 4.0 International License.
+Materials for the short-course „Digital Signal Processing with GPUs — Introduction to Parallel Programming” are licensed by us4us Ltd. and IPPT PAN under the Creative Commons Attribution-NonCommercial 4.0 International License.
 Some slides and examples are borrowed from the course „The GPU Teaching Kit” that is licensed by NVIDIA and the University of Illinois under the Creative Commons Attribution-NonCommercial 4.0 International License.
 
 ![CC BY NC](https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc.png "CC BY NC")
