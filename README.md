@@ -26,7 +26,7 @@ All the IUS 2021 "Ultrasound Signal Processing with GPUs — Introduction to Par
 
 In this section we describe three possible options how to get and run the exercise jupyter notebooks.
 
-### Option #1: running jupyter notebooks in Miniconda
+### Option #1: running jupyter notebooks in Miniconda (Linux or Windows)
 
 We recommend using [CUDA Toolkit 11.0](https://developer.nvidia.com/cuda-11.0-download-archive).
 
@@ -64,16 +64,14 @@ pip install -e ./utils
 10. Open one of the exercise notebooks with solutions and run all cells to test if everything works correctly.
 
 
-### Option #2: Docker image
+### Option #2: Docker image (Linux)
 
 Requirements:
 - Linux: make sure that your GPU and operating system are supported by NVIDIA Container Toolkit (check the list available [here](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#linux-distributions))
-- Windows: make sure your GPU and OS are supported by CUDA Toolkit on WSL (check requirements [here](https://docs.nvidia.com/cuda/wsl-user-guide/index.html#wsl2-system-requirements))
 
 Before running the exercise jupyter notebooks please install [docker](https://docs.docker.com/get-docker/) on your computer. To be able to use the GPU as part of the docker container, it is also necessary to install the following software:
 
 - on Linux: install [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
-- on Windows: install [NVIDIA CUDA on Windows Subsystem for Linux](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)
 
 Then just run the following command in Linux:
 ```
