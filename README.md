@@ -59,6 +59,7 @@ conda activate gpu-course
 ```
 9. Clone this repository on your computer.
 ```
+conda install git
 git clone https://github.com/us4useu/ius-2021-gpu-short-course.git
 cd ius-2021-gpu-short-course
 ```
