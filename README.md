@@ -4,6 +4,8 @@ This is a repository for the “Digital Signal Processing with GPUs — Introduc
 
 Note: To be informed about any changes in the future, you can press the "Star" and "Watch" buttons, which you can find in the upper right corner. Thanks!
 
+In case of any questions or problems with the lectures or exercises for this course do not hesitate to [contact us](https://github.com/us4useu/ius-2021-gpu-short-course/issues/new).
+
 ## Contents
 - `slides`: decks of slides for the presentation,
 - `exercises`: Jupyter notebooks with CUDA code examples to run,
