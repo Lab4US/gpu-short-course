@@ -5,7 +5,7 @@ dependencies:
   - python=3.8.11
   - nodejs=14.8.0
   - pip:
-    - jupyterlab==3.0.16
+    - jupyterlab>=3.0.17
     - matplotlib==3.4.2
     - matplotlib-inline==0.1.2
     - numpy==1.19.5
