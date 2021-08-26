@@ -10,10 +10,7 @@ Note: this course is still a work-in-progress effort, so in the future we will s
 - cfg - configuration files 
 
 ## Organization
-The short-course is organized by [us4us Ltd.](http://us4us.eu/) and [IPPT PAN](http://www.ippt.pan.pl/en/), and will be presented:
-
-1. live via Zoom in BIOCENTRUM Ochota: 6/29/2021 @ 9am—1pm
-2. pre-recorded on [IEEE IUS-2021](https://2021.ieee-ius.org/short-courses/)
+The short-course is organized by [us4us Ltd.](http://us4us.eu/) and [IPPT PAN](http://www.ippt.pan.pl/en/). pre-recorded on [IEEE IUS-2021](https://2021.ieee-ius.org/short-courses/).
 
 In both cases the links will be provided by email to the registered participants.
 
@@ -21,38 +18,40 @@ In both cases the links will be provided by email to the registered participants
 
 In this section we describe how you can get and run the exercise jupyter notebooks.
 
-### Using ius_gpu_short_course Docker image (recommended)
+### Using ius_gpu_short_course Docker image
 
-We recommend using `pjarosikus4useu/ius_gpu_short_course:1.0.0` Docker image.
+We recommend using `us4useu/ius_gpu_short_course:1.0.0` Docker image.
 
 Before running the exercise jupyter notebooks please install [docker](https://docs.docker.com/get-docker/) on your computer. To be able to use the GPU as part of the docker container, it is necessary to install the following additional software:
 
-- on Linux: install [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html),
+- on Linux: install [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
+  - make sure that your operating system is supported by NVIDIA Container Toolkit (check the list available [here](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#linux-distributions))
 - on Windows: install [NVIDIA CUDA on Windows Subsystem for Linux](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)
+  - make sure your GPU and OS is supported by CUDA Toolkit on WSL: [requirements](https://docs.nvidia.com/cuda/wsl-user-guide/index.html#wsl2-system-requirements)
 
-Then just run the following command:
+Then just run the following command in Linux or WSL terminal:
 
 ```
-sudo docker run -p 8888:8888  -it --gpus all pjarosikus4us/ius_gpu_short_course:1.0.0
+sudo docker run -p 8888:8888  -it --gpus all us4useu/ius_gpu_short_course:1.0.0
 ```
 
-Note for Windows user: if for some reason you encounter a problem with the installation of CUDA for WSL (e.g. your GPU is not supported by WSL), another option might be to use the Miniconda environment on your host machine (see below).
+Note: if for some reason you encounter a problem with the installation of CUDA on Linux or for WSL (e.g. your GPU is not supported by WSL), another option might be to use the Miniconda environment on your host machine (see instructions below).
 
 ### Running jupyter notebooks in Miniconda
 
-Install the following software first to run notebooks:
+Install the following software first:
 - we recommend using [CUDA Toolkit 11.0](https://developer.nvidia.com/cuda-11.0-download-archive),
 - Python 3.8: we recommend using [Miniconda](https://docs.conda.io/en/latest/miniconda.html) instead of using Python distribution available in your operating system. Miniconda gives you a possibility to create an isolated Python environment, with it's own set of software and packages. Any changes you will make in the environment will **not** impact your system-wide configuration.
   1. Install Minconda for Python 3.8.
-  2. Open your shell (Linux or MacOS) or Anaconda Powershell Prompt (Windows).
-  3. Create a new environment: `conda create -n gpu-course python=3.8`
-  4. Activate the environment: `conda activate gpu-course`
-  5. Clone this repository on your computer.
-  6. Install requirements: `conda env update --name gpu-course --file cfg/conda-env-linux.yml --prune && pip install cupy-cuda110==9.3.0 && pip install ` 
+  3. Open your shell (Linux or MacOS) or Anaconda Powershell Prompt (Windows).
+  4. Create a new environment: `conda create -n gpu-course python=3.8`
+  5. Activate the environment: `conda activate gpu-course`
+  6. Clone this repository on your computer.
+  7. Install requirements: `conda env update --name gpu-course --file cfg/conda-env-linux.yml --prune && pip install cupy-cuda110==9.3.0 && pip install ` 
   9. Run: `jupyter lab`
   10. Open one of the exercise notebooks and run all cells.
 
-It's also possible to run via Google Colab website (see instructions above) instead of Jupyter Lab. 
+It's also possible to run via Google Colab website (see instructions above) instead of using Jupyter Lab on your computer. 
 
 ### Running the jupyter notebooks on Google Colab
 
