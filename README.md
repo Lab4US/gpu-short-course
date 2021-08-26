@@ -2,17 +2,16 @@
 
 This is a repository for the “Digital Signal Processing with GPUs — Introduction to Parallel Programming” short-course.
 
-Note: this course is still a work-in-progress effort, so in the future we will supplement it with new materials and examples. To be informed about any changes in the future, you can press the "Star" and "Watch" buttons, which you can find in the upper right corner. Thanks!
+Note: To be informed about any changes in the future, you can press the "Star" and "Watch" buttons, which you can find in the upper right corner. Thanks!
 
 ## Contents
-- slides — decks of slides for the presentation; 
+- slides — decks of slides for the presentation,
 - exercises — Jupyter notebooks with CUDA code examples to run,
-- cfg - configuration files 
+- cfg - configuration files,
+- utils - utility Python scripts.
 
 ## Organization
-The short-course is organized by [us4us Ltd.](http://us4us.eu/) and [IPPT PAN](http://www.ippt.pan.pl/en/). pre-recorded on [IEEE IUS-2021](https://2021.ieee-ius.org/short-courses/).
-
-In both cases the links will be provided by email to the registered participants.
+The short-course is organized by [us4us Ltd.](http://us4us.eu/), [IPPT PAN](http://www.ippt.pan.pl/en/), and . The pre-recorded lectures will be available for IUS 2021 "Ultrasound Signal Processing with GPUs — Introduction to Parallel Programming" short-course participants.
 
 ## Jupyter notebooks
 
@@ -35,7 +34,7 @@ Then just run the following command in Linux or WSL terminal:
 sudo docker run -p 8888:8888  -it --gpus all us4useu/ius_gpu_short_course:1.0.0
 ```
 
-Note: if for some reason you encounter a problem with the installation of CUDA on Linux or for WSL (e.g. your GPU is not supported by WSL), another option might be to use the Miniconda environment on your host machine (see instructions below).
+Note: if for some reason you encounter a problem with installing CUDA Container Toolkit or NVIDIA CUDA on WSL (e.g. your GPU is not supported by WSL), another option might be to use the Miniconda environment on your host machine (see instructions below).
 
 ### Running jupyter notebooks in Miniconda
 
@@ -43,13 +42,28 @@ Install the following software first:
 - we recommend using [CUDA Toolkit 11.0](https://developer.nvidia.com/cuda-11.0-download-archive),
 - Python 3.8: we recommend using [Miniconda](https://docs.conda.io/en/latest/miniconda.html) instead of using Python distribution available in your operating system. Miniconda gives you a possibility to create an isolated Python environment, with it's own set of software and packages. Any changes you will make in the environment will **not** impact your system-wide configuration.
   1. Install Minconda for Python 3.8.
-  3. Open your shell (Linux or MacOS) or Anaconda Powershell Prompt (Windows).
-  4. Create a new environment: `conda create -n gpu-course python=3.8`
-  5. Activate the environment: `conda activate gpu-course`
-  6. Clone this repository on your computer.
-  7. Install requirements: `conda env update --name gpu-course --file cfg/conda-env-linux.yml --prune && pip install cupy-cuda110==9.3.0 && pip install ` 
-  9. Run: `jupyter lab`
-  10. Open one of the exercise notebooks and run all cells.
+  3. Open your shell (Linux) or Anaconda Powershell Prompt (Windows).
+  4. Create a new environment: 
+  ```
+  conda create -n gpu-course python=3.8
+  ```
+  7. Activate the environment: 
+  ```
+  conda activate gpu-course
+  ```
+  9. Clone this repository on your computer.
+  ```
+  git clone https://github.com/us4useu/ius-2021-gpu-short-course.git
+  cd ius-2021-gpu-short-course
+  ```
+  11. Install requirements: 
+  ```
+  conda env update --name gpu-course --file cfg/conda-requirements.yml --prune 
+  pip install cupy-cuda110==9.3.0
+  pip install .
+  ```
+  13. Run: `jupyter lab`
+  14. Open one of the exercise notebooks and run all cells to test if everything works correctly.
 
 It's also possible to run via Google Colab website (see instructions above) instead of using Jupyter Lab on your computer. 
 
