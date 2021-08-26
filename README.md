@@ -18,7 +18,9 @@ Note: To be informed about any changes in the future, you can press the "Star" a
 ## Organization
 The short-course is organized by [us4us Ltd.](http://us4us.eu/), [IPPT PAN](http://www.ippt.pan.pl/en/), and [LITMUS, University of Waterloo](https://lit-mus.org/about/). The pre-recorded lectures are available for IUS 2021 "Ultrasound Signal Processing with GPUs — Introduction to Parallel Programming" short-course participants.
 
-All the IUS 2021 "Ultrasound Signal Processing with GPUs — Introduction to Parallel Programming" short-course exercise recordings were done on .
+All the IUS 2021 "Ultrasound Signal Processing with GPUs — Introduction to Parallel Programming" short-course exercise recordings were performed on:
+- Ubuntu 18.04 LTS
+- NVIDIA Titan X GPU
 
 ## Jupyter notebooks
 
