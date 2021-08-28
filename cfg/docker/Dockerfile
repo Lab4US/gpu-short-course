@@ -77,11 +77,11 @@ USER $USER_UID
 WORKDIR $HOME
 
 # Setup work directory for backward-compatibility
-RUN git clone --branch develop https://github.com/us4useu/${GPU_SHORT_COURSE_REPO_NAME}.git && \
+RUN git clone https://github.com/us4useu/${GPU_SHORT_COURSE_REPO_NAME}.git  --branch ${GPU_SHORT_COURSE_VERSION} --single-branch  && \
     fix-permissions /home/$IMAGE_USER
 
 RUN cd /tmp && \
-    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh --branch ${GPU_SHORT_COURSE_VERSION} --single-branch && \
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
     echo "${MINICONDA_MD5} *Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh" | md5sum -c - && \
     /bin/bash Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
     rm Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
