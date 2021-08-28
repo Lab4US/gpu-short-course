@@ -56,7 +56,7 @@ ENV PYTHON_VERSION=3.8 \
     MINICONDA_VERSION=py38_4.9.2 \
     MINICONDA_MD5=122c8c9beb51e124ab32a0fa6426c656 \
     CONDA_VERSION=4.9.2 \
-    GPU_SHORT_COURSE_VERSION=1.0 \
+    GPU_SHORT_COURSE_VERSION=v1.0 \
     GPU_SHORT_COURSE_BRANCH=develop \
     GPU_SHORT_COURSE_REPO_NAME=ius-2021-gpu-short-course
 
@@ -77,11 +77,11 @@ USER $USER_UID
 WORKDIR $HOME
 
 # Setup work directory for backward-compatibility
-RUN git clone --branch develop https://github.com/us4useu/${GPU_SHORT_COURSE_REPO_NAME}.git && \
+RUN git clone https://github.com/us4useu/${GPU_SHORT_COURSE_REPO_NAME}.git  --branch ${GPU_SHORT_COURSE_VERSION} --single-branch  && \
     fix-permissions /home/$IMAGE_USER
 
 RUN cd /tmp && \
-    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh --branch ${GPU_SHORT_COURSE_VERSION} --single-branch && \
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
     echo "${MINICONDA_MD5} *Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh" | md5sum -c - && \
     /bin/bash Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
     rm Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
@@ -93,7 +93,7 @@ RUN cd /tmp && \
 WORKDIR $HOME
 
 # Install short-course requirements.
-RUN $CONDA_DIR/bin/conda env update --name base --file ${GPU_SHORT_COURSE_REPO_NAME}/cfg/conda-requirements.yml --prune && \
+RUN $CONDA_DIR/bin/conda env update --name base --file ${GPU_SHORT_COURSE_REPO_NAME}/cfg/conda-requirements-linux.yml --prune && \
     $CONDA_DIR/bin/pip install -r ${GPU_SHORT_COURSE_REPO_NAME}/cfg/pip-requirements.txt && \
     $CONDA_DIR/bin/pip install cupy-cuda110==9.3.0 && \
     # Initialize cupy (and that can take some time).
