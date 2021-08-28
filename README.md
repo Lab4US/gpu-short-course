@@ -1,60 +1,188 @@
-# BIOCENTRUM / IUS-2021 GPU short-course
+# IUS-2021 GPU short-course
 
 This is a repository for the “Digital Signal Processing with GPUs — Introduction to Parallel Programming” short-course.
 
-Note: this course is still a work-in-progress effort, so in the future we will supplement it with new materials and examples. To be informed about any changes in the future, you can press the "Star" and "Watch" buttons, which you can find in the upper right corner. Thanks!
+Note: To be informed about any changes in the future, you can press the "Star" and "Watch" buttons, which you can find in the upper right corner. Thanks!
+
+In case of any questions or problems with the lectures or exercises for this course do not hesitate to [contact us](https://github.com/us4useu/ius-2021-gpu-short-course/issues/new).
 
 ## Contents
-- slides — decks of slides for the presentation; 
-- exercises — Jupyter notebooks with CUDA code examples to run.
+- `slides`: decks of slides for the presentation,
+- `exercises`: Jupyter notebooks with CUDA code examples to run,
+  - `cupy`: a list of exercise notebooks that use the CuPy package to communicate with the GPU. **These are the notebooks we use in the IUS 2021 short course video**. Each subdirectory contains the following files and directories:
+    - `*.ipynb`: exercise jupyter notebooks,
+    - `*.cc`: CUDA C kernel source files,
+    - subdirectory `solutions`: solutions to the exercises (only in the case of notebooks with some exercises). 
+  - `numba`: a list of exercise notebooks that use the Numba package to communicate with the GPU. The notebooks are from the older edition of the course and may be useful in case you are not familiar with C language (which is required in cupy courses to write CUDA C GPU kernels). Note: we do not describe these notebooks in the IUS 2021 short course video.
+- `cfg` - configuration files for your Conda environment and Docker images,
+- `utils` - utility Python scripts.
 
 ## Organization
-The short-course is organized by [us4us Ltd.](http://us4us.eu/) and [IPPT PAN](http://www.ippt.pan.pl/en/), and will be presented:
+The short-course is organized by [us4us Ltd.](http://us4us.eu/), [IPPT PAN](http://www.ippt.pan.pl/en/), and [LITMUS, University of Waterloo](https://lit-mus.org/about/). The pre-recorded lectures are available for IUS 2021 "Ultrasound Signal Processing with GPUs — Introduction to Parallel Programming" short-course participants.
 
-1. live via Zoom in BIOCENTRUM Ochota: 6/29/2021 @ 9am—1pm
-2. pre-recorded on [IEEE IUS-2021](https://2021.ieee-ius.org/short-courses/)
+All the IUS 2021 "Ultrasound Signal Processing with GPUs — Introduction to Parallel Programming" short-course exercise recordings were performed on:
+- Ubuntu 18.04 LTS,
+- NVIDIA Titan X GPU,
+- exercise notebooks version 1.0.
 
-In both cases the links will be provided by email to the registered participants.
+We recommend the use of notebooks in the latest version: they may differ slightly from those presented in exercise recordings, but also may contain improvements to version 1.0.
 
-## Jupyter notebooks
+## Exercise notebooks
 
-### Running the jupyter notebooks on your computer.
+In this section we describe options how to get and run the exercise Jupyter notebooks.
 
-Install the following software first to run notebooks:
-- [CUDA Toolkit 11.0](https://developer.nvidia.com/cuda-11.0-download-archive),
-- Python 3.8: we recommend using [Miniconda](https://docs.conda.io/en/latest/miniconda.html) instead of using Python distribution available in your operating system. Miniconda gives you a possibility to create an isolated Python environment, with it's own set of software and packages. Any changes you will make in the environment will **not** impact your system-wide configuration.
-  1. Install Minconda for Python 3.8.
-  2. Open your shell (Linux or MacOS) or Anaconda Powershell Prompt (Windows).
-  3. Create a new environment: `conda create -n gpu-course python=3.8`
-  4. Activate the environment: `conda activate gpu-course`
-  5. Install requirements: `pip install -r exercises/requirements.txt` 
-  6. Run: `jupyter lab`
-  7. Open one of the exercise notebooks and run all cells.
+### Option #1: running jupyter notebooks in Miniconda (Linux x64 or Windows x64)
 
-It's also possible to run via Google Colab website (see instructions above) instead of Jupyter Lab. 
+We recommend using [CUDA Toolkit 11.0](https://developer.nvidia.com/cuda-11.0-download-archive).
 
-### Running the jupyter notebooks on Google Colab.
+Python 3.8: we recommend using [Miniconda](https://docs.conda.io/en/latest/miniconda.html) instead of using Python distribution available in your operating system. Miniconda gives you a possibility to create an isolated Python environment, with it's own set of software and packages. Any changes you will make in the environment will **not** impact your system-wide configuration.
 
-If you don't have an access to NVIDIA GPU card, you can try running the notebooks on Google Colab.
+1. Install Minconda for Python 3.8.
+2. Install `wget` program:
+  - Linux: use your package manager to get the app, for example on Ubuntu: `sud apt install wget`
+  - Windows: download the following [executable](https://eternallybored.org/misc/wget/1.21.1/64/wget.exe) and put it into a directory listed in your `PATH` environment variable. 
+3. Open your shell (Linux) or Anaconda Powershell Prompt (Windows).
+4. Create a new conda environment: 
+```
+conda create -n gpu-course python=3.8
+```
+5. Activate the environment: 
+```
+conda activate gpu-course
+```
+6. Clone this repository on your computer.
+```
+conda install git
+git clone https://github.com/us4useu/ius-2021-gpu-short-course.git --branch v1.0 --single-branch
+cd ius-2021-gpu-short-course
+```
+7. Install in your conda environment the required software:
+  - Linux: `conda env update --name gpu-course --file cfg/conda-requirements-linux.yml --prune` 
+  - Windows: `conda env update --name gpu-course --file cfg/conda-requirements-windows.yml --prune` 
+8. Install the required Python packages. **Note**: if you are using a version of CUDA other than 11.0, be sure to change the version of cuda in the name of cupy package (i.e. the cupy-cuda110 to cupy-cudaXY, where X.Y is the version of CUDA you currently use).
+```
+pip install -r cfg/pip-requirements.txt
+pip install cupy-cuda110==9.3.0
+pip install -e ./utils 
+```
+9. Run: `jupyter lab`
 
-Copy the notebooks from [here](https://drive.google.com/drive/folders/1Ea0IAGuDkcP0V2-i5YrmJ2RvY4Lo4mI1?usp=sharing) to some location on your Google Drive. 
+You should see an output similar to the one below:
+```
+[I 2021-08-26 18:28:10.973 ServerApp] jupyterlab | extension was successfully linked.
+[W 2021-08-26 18:28:10.990 ServerApp] The 'min_open_files_limit' trait of a ServerApp instance expected an int, not the NoneType None.
+[I 2021-08-26 18:28:11.255 ServerApp] nbclassic | extension was successfully loaded.
+[I 2021-08-26 18:28:11.256 LabApp] JupyterLab extension loaded from C:\Users\username\anaconda3\envs\gpu-course\lib\site-packages\jupyterlab
+[I 2021-08-26 18:28:11.257 LabApp] JupyterLab application directory is C:\Users\username\anaconda3\envs\gpu-course\share\jupyter\lab
+[I 2021-08-26 18:28:11.261 ServerApp] jupyterlab | extension was successfully loaded.
+[I 2021-08-26 18:28:11.262 ServerApp] Serving notebooks from local directory: C:\Users\username\repos\ius-2021-gpu-short-course
+[I 2021-08-26 18:28:11.262 ServerApp] Jupyter Server 1.10.2 is running at:
+[I 2021-08-26 18:28:11.263 ServerApp] http://localhost:8888/lab?token=ff2ac4b0004ce179455a5e48b24defd541a0869aee7fe33d
+[I 2021-08-26 18:28:11.263 ServerApp]  or http://127.0.0.1:8888/lab?token=ff2ac4b0004ce179455a5e48b24defd541a0869aee7fe33d
+[I 2021-08-26 18:28:11.265 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 2021-08-26 18:28:11.353 ServerApp]
 
-Please remember to change runtime to GPU before running notebooks (e.g. see instructions [here](https://www.geeksforgeeks.org/how-to-use-google-colab/)). 
+    To access the server, open this file in a browser:
+        file:///C:/Users/username/AppData/Roaming/jupyter/runtime/jpserver-24164-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:8888/lab?token=ff2ac4b0004ce179455a5e48b24defd541a0869aee7fe33d
+     or http://127.0.0.1:8888/lab?token=ff2ac4b0004ce179455a5e48b24defd541a0869aee7fe33d
+[I 2021-08-26 18:28:14.352 LabApp] Build is up to date
 
-Caution:
 
-- Google Colab in the free version does not guarantee the availability of the GPU in any particular time.
-- Google Colab in the free version may provide one of the following graphics cards: NVIDIA T4 or NVIDIA K80. NVIDIA T4 may not work with NVPROF profiler. In the future, we will supplement the course with examples for the new profiler required by the latest graphics cards: NVIDIA Nsight Compute and Systems.
+```
 
-Still, it is possible to run Google Colab notebook on on your computer's GPU - you can change the runtime to your local jupyter instance. Install the required software on your computer first (see instruction: *Running the jupyter notebooks on your computer*), then follow the Google Colab [instructions](https://research.google.com/colaboratory/local-runtimes.html).
+10. Open one of the exercise notebooks with solutions and run all cells to test if everything works correctly.
+
+
+### Option #2: Docker image (Linux x64 only)
+
+Requirements:
+- Linux: make sure that your GPU and operating system are supported by NVIDIA Container Toolkit (check the list available [here](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#linux-distributions))
+
+Before running the exercise jupyter notebooks please install [docker](https://docs.docker.com/get-docker/) on your computer. To be able to use the GPU as part of the docker container, it is also necessary to install the following software:
+
+- on Linux: install [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
+
+Then just run the following command in Linux:
+``` 
+sudo docker run -p 8888:8888  -it --gpus all --name gpu_course us4useu/ius_gpu_short_course:1.0
+```
+
+
+You should see an output similar to the one below:
+```
+Unable to find image 'us4useu/ius_gpu_short_course:1.0' locally
+1.0: Pulling from us4useu/ius_gpu_short_course
+16ec32c2132b: Already exists
+ab49a37cda04: Already exists
+b23b1cc2f66c: Already exists
+de57da913f8f: Already exists
+06b8d7b81090: Already exists
+5e0c69981f75: Already exists
+aa4d68208e9a: Already exists
+cdfffea224b0: Already exists
+6aea04a7cdf1: Already exists
+41e54634e42b: Already exists
+f2afcbd4e723: Pull complete
+09f295b33740: Pull complete
+8c6ebaa88ded: Pull complete
+a5ada5e02db8: Pull complete
+3e6037c11955: Pull complete
+926d9389a815: Pull complete
+a8484209f71f: Pull complete
+6fb4d747b5b4: Pull complete
+9547bfd6657a: Pull complete
+6eadc574abfe: Pull complete
+7a9ec0c5114e: Pull complete
+6e50ce083ad1: Pull complete
+08d362a2355f: Pull complete
+88aa9ffa018d: Pull complete
+5fac73b69e4e: Pull complete
+bb3b949600c9: Pull complete
+Digest: sha256:14dd7ea7c3a8943b88bd937fe3e52741fe51fec282822d62d16b00765effbd00
+Status: Downloaded newer image for us4useu/ius_gpu_short_course:1.0
+Running as student
+Executing the command: jupyter lab --no-browser
+[I 2021-08-26 11:10:19.003 ServerApp] jupyterlab | extension was successfully linked.
+[I 2021-08-26 11:10:19.019 ServerApp] Writing Jupyter server cookie secret to /home/student/.local/share/jupyter/runtime/jupyter_cookie_secret
+[I 2021-08-26 11:10:19.217 ServerApp] nbclassic | extension was successfully linked.
+[I 2021-08-26 11:10:19.275 ServerApp] nbclassic | extension was successfully loaded.
+[I 2021-08-26 11:10:19.277 LabApp] JupyterLab extension loaded from /opt/conda/lib/python3.8/site-packages/jupyterlab
+[I 2021-08-26 11:10:19.277 LabApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 2021-08-26 11:10:19.281 ServerApp] jupyterlab | extension was successfully loaded.
+[I 2021-08-26 11:10:19.282 ServerApp] Serving notebooks from local directory: /home/student/ius-2021-gpu-short-course
+[I 2021-08-26 11:10:19.282 ServerApp] Jupyter Server 1.10.2 is running at:
+[I 2021-08-26 11:10:19.282 ServerApp] http://47ebf762524f:8888/lab?token=1f048e5cfd1b9bd592885ab6c599e3c7e6c62a7168a7d7ce
+[I 2021-08-26 11:10:19.282 ServerApp]  or http://127.0.0.1:8888/lab?token=1f048e5cfd1b9bd592885ab6c599e3c7e6c62a7168a7d7ce
+[I 2021-08-26 11:10:19.282 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 2021-08-26 11:10:19.287 ServerApp]
+    To access the server, open this file in a browser:
+        file:///home/student/.local/share/jupyter/runtime/jpserver-7-open.html
+    Or copy and paste one of these URLs:
+        http://47ebf762524f:8888/lab?token=1f048e5cfd1b9bd592885ab6c599e3c7e6c62a7168a7d7ce
+     or http://127.0.0.1:8888/lab?token=1f048e5cfd1b9bd592885ab6c599e3c7e6c62a7168a7d7ce
+```
+
+Now, copy and paste the Jupyter Lab URL (`http://127.0.0.1:8888/lab?token=1f048e5cfd1b9bd592885ab6c599e3c7e6c62a7168a7d7ce` in our case) to your web browser. 
+
+To stop the container: just press CTRL + C, or run `docker stop gpu_course`. To start the container again, use `docker start -i gpu_course`.
+
+
+To access docker container data (e.g. NVVP report results), you can use `docker cp` command, for example:
+
+```
+sudo docker cp gpu_course:/home/student/ius-2021-gpu-short-course/exercises/cupy/1_CUDA_programming_model/solutions/nvvp_example.nvvp .
+```
+
 
 ## Team
-The course is presented by Dr Marcin Lewandowski and Piotr Jarosik.
+The course is presented by Dr Marcin Lewandowski, Piotr Jarosik and Billy Yiu.
 
-Course support team includes: Mateusz Walczak, Piotr Karwat, Ziemowit Klimonda and Julia Lewandowska.
+Course support team includes: Ziemowit Klimonda, Mateusz Walczak, Piotr Karwat and Julia Lewandowska.
 
 ## License
-Materials for the short-course „Digital Signal Processing with GPUs — Introduction to Parallel Programming” are licensed by us4us Ltd. the IPPT PAN under the Creative Commons Attribution-NonCommercial 4.0 International License.
+Materials for the short-course „Digital Signal Processing with GPUs — Introduction to Parallel Programming” are licensed by us4us Ltd. and IPPT PAN under the Creative Commons Attribution-NonCommercial 4.0 International License.
 Some slides and examples are borrowed from the course „The GPU Teaching Kit” that is licensed by NVIDIA and the University of Illinois under the Creative Commons Attribution-NonCommercial 4.0 International License.
 
 ![CC BY NC](https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc.png "CC BY NC")

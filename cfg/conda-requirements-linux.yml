@@ -1,0 +1,12 @@
+channels:
+  - defaults
+dependencies:
+  - pip=21.2.2
+  - python=3.8.11
+  - nodejs=14.8.0
+  - pip:
+    - jupyterlab==3.0.17
+    - runipy==0.1.5
+    - jupyter_contrib_nbextensions==0.5.1
+    - jupyter_nbextensions_configurator==0.4.1
+    - nbconvert==5.6.1
