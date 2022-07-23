@@ -137,6 +137,8 @@ exercises/cupy/**/*.py
 exercises/numba/**/*.py
 exercises/cupy/**/*.gif
 
+# intellij configs
+.idea/
 
 *.swp
 *.nvvp
