@@ -1,14 +1,14 @@
 #include <cupy/complex.cuh>
 
 extern "C" __global__ 
-void doppler(float *color, 
-             float *power, 
-             const complex<float> *iqFrames, 
-             const int nBatch, 
-             const int nBatchFrames,             
-             const int nx, 
-             const int nz, 
-             const int step)                  
+void phase_shift(
+    float *ps, 
+    const complex<float> *iqFrames, 
+    const int nBatch, 
+    const int nBatchFrames,             
+    const int nx, 
+    const int nz, 
+const int step)                  
 {
     int z = blockIdx.x * blockDim.x + threadIdx.x;
     int x = blockIdx.y * blockDim.y + threadIdx.y;
@@ -18,7 +18,7 @@ void doppler(float *color,
         return;
     }
     
-    /* Color and Power estimation */
+    /* Phase shift estimation */
         
     complex<float> sample;
     float ic, qc, ip, qp, pwr, nom = 0.0f, den = 0.0f;
@@ -26,7 +26,6 @@ void doppler(float *color,
     sample = iqFrames[z + x*nz + t*nx*nz*step];
     ic = real(sample);
     qc = imag(sample);
-    pwr = ic*ic + qc*qc;
     
     for (int iFrame = 1; iFrame < nBatchFrames; iFrame++) {
         // previous I and Q values
@@ -38,10 +37,8 @@ void doppler(float *color,
         ic = real(sample);
         qc = imag(sample);
         
-        pwr += ic*ic + qc*qc;
         den += ic*ip + qc*qp;
         nom += qc*ip - ic*qp;
     }
-    color[z + x*nz + t*nx*nz] = atan2f(nom, den);
-    power[z + x*nz + t*nx*nz] = pwr/nBatchFrames;
+    ps[z + x*nz + t*nx*nz] = atan2f(nom, den);
 }
