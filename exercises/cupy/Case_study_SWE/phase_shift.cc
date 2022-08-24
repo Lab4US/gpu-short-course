@@ -40,5 +40,5 @@ const int step)
         den += ic*ip + qc*qp;
         nom += qc*ip - ic*qp;
     }
-    ps[z + x*nz + t*nx*nz] = atan2f(nom, den);
+    ps[z + x*nz + t*nx*nz] = -atan2f(nom, den);
 }
