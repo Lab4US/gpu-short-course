@@ -8,7 +8,7 @@ void phase_shift(
     const int nBatchFrames,             
     const int nx, 
     const int nz, 
-const int step)                  
+    const int step)                  
 {
     int z = blockIdx.x * blockDim.x + threadIdx.x;
     int x = blockIdx.y * blockDim.y + threadIdx.y;
