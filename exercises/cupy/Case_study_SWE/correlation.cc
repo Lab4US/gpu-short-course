@@ -3,7 +3,6 @@ __global__ void correlation(
     float *lagImg,
     float *corImg,
     float *frames,
-    const int maxPossibleLag,
     const int d,
     const int nFrames,    
     const int nx, 
@@ -18,12 +17,13 @@ __global__ void correlation(
     
     int xd = (x+d) % nx;
     int maxlag = 0;
-    float maxval = 0.0f;
+    float maxval = 0;
     float value;
     int kFrame;
     int offset = nFrames/2;
     int n = 0;
     
+    // estimate mean value of processed signals
     float m = 0;
     float md = 0;
     for (int iFrame = 0; iFrame < nFrames; ++iFrame){
@@ -33,10 +33,11 @@ __global__ void correlation(
     m = m/nFrames;
     md = md/nFrames;
     
+    // estimate max correlation and corresponding lag
     for (int lag = 0; lag < nFrames; ++lag){
         value = 0;
+        n = 0;
         for (int iFrame = 0; iFrame < nFrames; ++iFrame){
-//             kFrame = (offset - lag + iFrame) % nFrames;
             kFrame = (offset + iFrame - lag);
             if(kFrame >= 0 && kFrame < nFrames) {
                 value += (frames[z +  x*nz + iFrame*nx*nz] - m)
@@ -50,9 +51,6 @@ __global__ void correlation(
             maxlag = abs(lag - offset);
         }        
     }
-//     if (maxlag >= maxPossibleLag){
-//         maxlag = maxPossibleLag;
-//     }
 
     lagImg[z + x*nz] = maxlag;
     corImg[z + x*nz] = maxval;
