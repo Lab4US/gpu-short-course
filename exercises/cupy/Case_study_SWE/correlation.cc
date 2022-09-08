@@ -10,12 +10,13 @@ __global__ void correlation(
 {
     int z = blockIdx.x * blockDim.x + threadIdx.x;
     int x = blockIdx.y * blockDim.y + threadIdx.y;
-
-    if (z >= nz || x >= nx) {
+    // int xd = (x+d);
+    if (z >= nz || x >= nx-d) {
         return;
     }
     
-    int xd = (x+d) % nx;
+    int xd = (x+d);
+    // int xd = (x+d) % nx;
     int maxlag = 0;
     float maxval = 0;
     float value;

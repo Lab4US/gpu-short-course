@@ -14,7 +14,8 @@ def show_frame(
     cmap='jet',
     nxticks=5,
     nyticks=5,
-    row0=64
+    row0=64,
+    show=True
 ):
     
     nrow, ncol = data.shape
@@ -23,7 +24,7 @@ def show_frame(
     
     y0 = row0*dy*1e3
     yticks = np.linspace(0, nrow, nyticks)
-    yticklabels = np.round((yticks+row0)*dy*1e3, 0) 
+    yticklabels = np.round((row0 + yticks)*dy*1e3, 0) 
     
     fig = plt.figure()
     im = plt.imshow(
@@ -38,7 +39,8 @@ def show_frame(
     plt.xlabel('[mm]')
     plt.ylabel('[mm]')
     plt.colorbar()
-    plt.show()
+    if show:
+        plt.show()
     return fig, im
 
 
@@ -57,10 +59,11 @@ def show_waves(data, vmin=None, vmax=None):
     fig, im = show_frame(
         data[0,:,:].T, 
         vmin=vmin, 
-        vmax=vmax
+        vmax=vmax,
+        show=False,
     )
     # fig = plt.figure()
-    # fig.set_facecolor('white')
+    fig.set_facecolor('white')
     # im = plt.imshow(
     #     data[0,:,:].T, 
     #     cmap='jet',
@@ -176,7 +179,7 @@ def wavefront_separation(frames):
 def estimate_lag(
     data, 
     kernel, 
-    d=32, 
+    d=50, 
     block_size_x=32,
     block_size_z=32,
 ):
@@ -192,8 +195,8 @@ def estimate_lag(
     grid = (grid_size_z, grid_size_x)
     
     # allocate gpu memory
-    lags = cp.zeros((nx, nz)).astype(cp.float32)
-    cors = cp.zeros((nx, nz)).astype(cp.float32)
+    lags = cp.zeros((nx-d, nz)).astype(cp.float32)
+    cors = cp.zeros((nx-d, nz)).astype(cp.float32)
     data = cp.array(data, order='C').astype(cp.float32)
     
     # use kernel
