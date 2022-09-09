@@ -20,11 +20,11 @@ def show_frame(
     
     nrow, ncol = data.shape
     xticks = np.linspace(0, ncol, nxticks)
-    xticklabels = np.round((xticks-ncol/2)*dx*1e3, 0)
+    xticklabels = np.round((xticks-ncol/2)*dx*1e3, 0).astype(int)
     
     y0 = row0*dy*1e3
     yticks = np.linspace(0, nrow, nyticks)
-    yticklabels = np.round((row0 + yticks)*dy*1e3, 0) 
+    yticklabels = np.round((row0 + yticks)*dy*1e3, 0).astype(int)
     
     fig = plt.figure()
     im = plt.imshow(
@@ -155,7 +155,7 @@ def wavefront_separation(frames):
     
     # create spectral masks for wavefront separation
     ncol, nrow = frames.shape[-2:]
-    r_mask = xp.ones((ncol, nrow))
+    r_mask = xp.ones((ncol, nrow)).astype(xp.float32)
     r_mask[:int(nrow/2), :int(ncol/2)] = 0
     r_mask[(xp.ceil(nrow/2).astype(int) + 1):, (xp.ceil(nrow/2).astype(int) + 1):] = 0
     l_mask = xp.fliplr(r_mask)
@@ -172,7 +172,7 @@ def wavefront_separation(frames):
     # get real
     l_frames = xp.real(l_frames)
     r_frames = xp.real(r_frames)
-    
+
     return l_frames, r_frames
 
 
@@ -186,7 +186,9 @@ def estimate_lag(
     '''
     Estimate shear wave propagation time of flight.
     '''
-       
+    # interpolation (optional)
+    # data = cupyx.scipy.ndimage.zoom(data, zoom=(10,1,1))
+    
     # define grid
     nframes, nx, nz = data.shape
     grid_size_x = np.ceil(nx/block_size_x).astype(int)
@@ -243,7 +245,7 @@ def estimate_phase_shift(
     return ps
 
 
-def process_all(iq, d=40, dx=0.1*1e-3, pri=2e-4):
+def process_all(iq, d=50, dx=0.1*1e-3, pri=2e-4):
     # create kernels
     phase_shift_kernel_src = open("phase_shift.cc").read()
     phase_shift_kernel = cp.RawKernel(phase_shift_kernel_src, 'phase_shift')
