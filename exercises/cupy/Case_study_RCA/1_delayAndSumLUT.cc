@@ -21,8 +21,22 @@ __device__ float interpLinear(const float *input, float sample, int nSamples) {
 }
 
 /**
-   @param txDelays: an array of TX delays with shape (nTx, nXPix, nZPix)
-   @param rxDelays: an array of RX delays with shape (nRx, nYPix, nZPix)
+   Beamforms input data.
+   
+   @param output: array for the output data (nYPix, nXPix, nZPix)
+   @param input: array with the input data (nTx, nRx, nSamples)
+   @param txApodization: an array with TX apodization (binary) weights (nTx, nXPix, nZPix)
+   @param rxApodization: an array with RX apodization weights (nRx, nYPix, nZPix)
+   @param txDelays: an array of TX delays with shape (nTx, nXPix, nZPix), (s)
+   @param rxDelays: an array of RX delays with shape (nRx, nYPix, nZPix), (s)
+   @param initDelay: aperture center transmit delay
+   @param nTx: number of transmissions (angles)
+   @param nSamples: number of samples
+   @param nRx: number of receive aperture elements
+   @param nXPix: number of pixels along OX axis
+   @param nYPix: number of pixels along OY axis
+   @param nZPix: number of pixels along OZ axis
+   @param fs: sampling frequency (Hz)
  */
 extern "C"
 __global__ void delayAndSumLUT(float *output, const float *input,
