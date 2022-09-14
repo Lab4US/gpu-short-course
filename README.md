@@ -53,7 +53,7 @@ conda activate gpu-course
 6. Clone this repository on your computer.
 ```
 conda install git
-git clone https://github.com/us4useu/gpu-short-course.git --branch v1.1 --single-branch
+git clone https://github.com/us4useu/gpu-short-course.git --branch v2.0 --single-branch
 cd gpu-short-course
 ```
 7. Install in your conda environment the required software:
