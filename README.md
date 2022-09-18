@@ -4,7 +4,7 @@ This is a repository for the “Digital Signal Processing with GPUs — Introduc
 
 Note: To be informed about any changes in the future, you can press the "Star" and "Watch" buttons, which you can find in the upper right corner. Thanks!
 
-In case of any questions or problems with the lectures or exercises for this course do not hesitate to [contact us](https://github.com/us4useu/gpu-short-course/issues/new).
+In case of any questions or problems with the lectures or exercises for this course do not hesitate to [contact us](https://github.com/Lab4US/gpu-short-course/issues/new).
 
 ## Contents
 - `slides`: decks of slides for the presentation,
@@ -53,7 +53,7 @@ conda activate gpu-course
 6. Clone this repository on your computer.
 ```
 conda install git
-git clone https://github.com/us4useu/gpu-short-course.git --branch v1.1 --single-branch
+git clone https://github.com/Lab4US/gpu-short-course.git --branch v2.0 --single-branch
 cd gpu-short-course
 ```
 7. Install in your conda environment the required software:
@@ -106,13 +106,13 @@ Before running the exercise jupyter notebooks please install [docker](https://do
 
 Then just run the following command in Linux:
 ``` 
-sudo docker run -p 8888:8888  -it --gpus all --name gpu_course us4useu/ius_gpu_short_course:1.1
+sudo docker run -p 8888:8888  -it --gpus all --name gpu_course us4useu/ius_gpu_short_course:2.0
 ```
 
 
 You should see an output similar to the one below:
 ```
-Unable to find image 'us4useu/ius_gpu_short_course:1.1' locally
+Unable to find image 'us4useu/ius_gpu_short_course:2.0' locally
 1.1: Pulling from us4useu/ius_gpu_short_course
 16ec32c2132b: Already exists
 ab49a37cda04: Already exists
@@ -141,7 +141,7 @@ a8484209f71f: Pull complete
 5fac73b69e4e: Pull complete
 bb3b949600c9: Pull complete
 Digest: sha256:14dd7ea7c3a8943b88bd937fe3e52741fe51fec282822d62d16b00765effbd00
-Status: Downloaded newer image for us4useu/ius_gpu_short_course:1.1
+Status: Downloaded newer image for us4useu/ius_gpu_short_course:2.0
 Running as student
 Executing the command: jupyter lab --no-browser
 [I 2021-08-26 11:10:19.003 ServerApp] jupyterlab | extension was successfully linked.

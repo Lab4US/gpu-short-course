@@ -11,3 +11,6 @@ dependencies:
     - jupyter_contrib_nbextensions==0.5.1
     - jupyter_nbextensions_configurator==0.4.1
     - nbconvert==5.6.1
+    - Jinja2==2.11.3
+    - MarkupSafe==2.0.1
+
