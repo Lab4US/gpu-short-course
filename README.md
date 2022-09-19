@@ -1,26 +1,26 @@
-# IUS-2021 GPU short-course
+# IUS GPU short-course
 
 This is a repository for the “Digital Signal Processing with GPUs — Introduction to Parallel Programming” short-course.
 
 Note: To be informed about any changes in the future, you can press the "Star" and "Watch" buttons, which you can find in the upper right corner. Thanks!
 
-In case of any questions or problems with the lectures or exercises for this course do not hesitate to [contact us](https://github.com/us4useu/ius-2021-gpu-short-course/issues/new).
+In case of any questions or problems with the lectures or exercises for this course do not hesitate to [contact us](https://github.com/Lab4US/gpu-short-course/issues/new).
 
 ## Contents
 - `slides`: decks of slides for the presentation,
 - `exercises`: Jupyter notebooks with CUDA code examples to run,
-  - `cupy`: a list of exercise notebooks that use the CuPy package to communicate with the GPU. **These are the notebooks we use in the IUS 2021 short course video**. Each subdirectory contains the following files and directories:
+  - `cupy`: a list of exercise notebooks that use the CuPy package to communicate with the GPU. **These are the notebooks we use in the IUS short course video**. Each subdirectory contains the following files and directories:
     - `*.ipynb`: exercise jupyter notebooks,
     - `*.cc`: CUDA C kernel source files,
     - subdirectory `solutions`: solutions to the exercises (only in the case of notebooks with some exercises). 
-  - `numba`: a list of exercise notebooks that use the Numba package to communicate with the GPU. The notebooks are from the older edition of the course and may be useful in case you are not familiar with C language (which is required in cupy courses to write CUDA C GPU kernels). Note: we do not describe these notebooks in the IUS 2021 short course video.
+  - `numba`: a list of exercise notebooks that use the Numba package to communicate with the GPU. The notebooks are from the older edition of the course and may be useful in case you are not familiar with C language (which is required in cupy courses to write CUDA C GPU kernels). Note: we do not describe these notebooks in the IUS short course video.
 - `cfg` - configuration files for your Conda environment and Docker images,
 - `utils` - utility Python scripts.
 
 ## Organization
-The short-course is organized by [us4us Ltd.](http://us4us.eu/), [IPPT PAN](http://www.ippt.pan.pl/en/), and [LITMUS, University of Waterloo](https://lit-mus.org/about/). The pre-recorded lectures are available for IUS 2021 "Ultrasound Signal Processing with GPUs — Introduction to Parallel Programming" short-course participants.
+The short-course is organized by [us4us Ltd.](http://us4us.eu/), [IPPT PAN](http://www.ippt.pan.pl/en/), and [LITMUS, University of Waterloo](https://lit-mus.org/about/). The pre-recorded lectures are available for IUS "Ultrasound Signal Processing with GPUs — Introduction to Parallel Programming" short-course participants.
 
-All the IUS 2021 "Ultrasound Signal Processing with GPUs — Introduction to Parallel Programming" short-course exercise recordings were performed on:
+All the IUS "Ultrasound Signal Processing with GPUs — Introduction to Parallel Programming" short-course exercise recordings were performed on:
 - Ubuntu 18.04 LTS,
 - NVIDIA Titan X GPU,
 - exercise notebooks version 1.0.
@@ -53,8 +53,8 @@ conda activate gpu-course
 6. Clone this repository on your computer.
 ```
 conda install git
-git clone https://github.com/us4useu/ius-2021-gpu-short-course.git --branch v1.1 --single-branch
-cd ius-2021-gpu-short-course
+git clone https://github.com/Lab4US/gpu-short-course.git --branch v2.0 --single-branch
+cd gpu-short-course
 ```
 7. Install in your conda environment the required software:
   - Linux: `conda env update --name gpu-course --file cfg/conda-requirements-linux.yml --prune` 
@@ -75,7 +75,7 @@ You should see an output similar to the one below:
 [I 2021-08-26 18:28:11.256 LabApp] JupyterLab extension loaded from C:\Users\username\anaconda3\envs\gpu-course\lib\site-packages\jupyterlab
 [I 2021-08-26 18:28:11.257 LabApp] JupyterLab application directory is C:\Users\username\anaconda3\envs\gpu-course\share\jupyter\lab
 [I 2021-08-26 18:28:11.261 ServerApp] jupyterlab | extension was successfully loaded.
-[I 2021-08-26 18:28:11.262 ServerApp] Serving notebooks from local directory: C:\Users\username\repos\ius-2021-gpu-short-course
+[I 2021-08-26 18:28:11.262 ServerApp] Serving notebooks from local directory: C:\Users\username\repos\gpu-short-course
 [I 2021-08-26 18:28:11.262 ServerApp] Jupyter Server 1.10.2 is running at:
 [I 2021-08-26 18:28:11.263 ServerApp] http://localhost:8888/lab?token=ff2ac4b0004ce179455a5e48b24defd541a0869aee7fe33d
 [I 2021-08-26 18:28:11.263 ServerApp]  or http://127.0.0.1:8888/lab?token=ff2ac4b0004ce179455a5e48b24defd541a0869aee7fe33d
@@ -106,13 +106,13 @@ Before running the exercise jupyter notebooks please install [docker](https://do
 
 Then just run the following command in Linux:
 ``` 
-sudo docker run -p 8888:8888  -it --gpus all --name gpu_course us4useu/ius_gpu_short_course:1.1
+sudo docker run -p 8888:8888  -it --gpus all --name gpu_course us4useu/ius_gpu_short_course:2.0
 ```
 
 
 You should see an output similar to the one below:
 ```
-Unable to find image 'us4useu/ius_gpu_short_course:1.1' locally
+Unable to find image 'us4useu/ius_gpu_short_course:2.0' locally
 1.1: Pulling from us4useu/ius_gpu_short_course
 16ec32c2132b: Already exists
 ab49a37cda04: Already exists
@@ -141,7 +141,7 @@ a8484209f71f: Pull complete
 5fac73b69e4e: Pull complete
 bb3b949600c9: Pull complete
 Digest: sha256:14dd7ea7c3a8943b88bd937fe3e52741fe51fec282822d62d16b00765effbd00
-Status: Downloaded newer image for us4useu/ius_gpu_short_course:1.1
+Status: Downloaded newer image for us4useu/ius_gpu_short_course:2.0
 Running as student
 Executing the command: jupyter lab --no-browser
 [I 2021-08-26 11:10:19.003 ServerApp] jupyterlab | extension was successfully linked.
@@ -151,7 +151,7 @@ Executing the command: jupyter lab --no-browser
 [I 2021-08-26 11:10:19.277 LabApp] JupyterLab extension loaded from /opt/conda/lib/python3.8/site-packages/jupyterlab
 [I 2021-08-26 11:10:19.277 LabApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
 [I 2021-08-26 11:10:19.281 ServerApp] jupyterlab | extension was successfully loaded.
-[I 2021-08-26 11:10:19.282 ServerApp] Serving notebooks from local directory: /home/student/ius-2021-gpu-short-course
+[I 2021-08-26 11:10:19.282 ServerApp] Serving notebooks from local directory: /home/student/gpu-short-course
 [I 2021-08-26 11:10:19.282 ServerApp] Jupyter Server 1.10.2 is running at:
 [I 2021-08-26 11:10:19.282 ServerApp] http://47ebf762524f:8888/lab?token=1f048e5cfd1b9bd592885ab6c599e3c7e6c62a7168a7d7ce
 [I 2021-08-26 11:10:19.282 ServerApp]  or http://127.0.0.1:8888/lab?token=1f048e5cfd1b9bd592885ab6c599e3c7e6c62a7168a7d7ce
@@ -172,7 +172,7 @@ To stop the container: just press CTRL + C, or run `docker stop gpu_course`. To 
 To access docker container data (e.g. NVVP report results), you can use `docker cp` command, for example:
 
 ```
-sudo docker cp gpu_course:/home/student/ius-2021-gpu-short-course/exercises/cupy/1_CUDA_programming_model/solutions/nvvp_example.nvvp .
+sudo docker cp gpu_course:/home/student/gpu-short-course/exercises/cupy/1_CUDA_programming_model/solutions/nvvp_example.nvvp .
 ```
 
 
