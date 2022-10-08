@@ -1,10 +1,11 @@
 # IUS GPU short-course
 
 This is a repository for the “Digital Signal Processing with GPUs — Introduction to Parallel Programming” short-course.
+The course overview is [here (PDF)](slides/US-GPU-short-course-info.pdf)
 
-Note: To be informed about any changes in the future, you can press the "Star" and "Watch" buttons, which you can find in the upper right corner. Thanks!
 
-In case of any questions or problems with the lectures or exercises for this course do not hesitate to [contact us](https://github.com/Lab4US/gpu-short-course/issues/new).
+*Note: To be informed about any changes in the future, you can press the "Star" and "Watch" buttons, which you can find in the upper right corner. Thanks!*
+
 
 ## Contents
 - `slides`: decks of slides for the presentation,
@@ -16,6 +17,14 @@ In case of any questions or problems with the lectures or exercises for this cou
   - `numba`: a list of exercise notebooks that use the Numba package to communicate with the GPU. The notebooks are from the older edition of the course and may be useful in case you are not familiar with C language (which is required in cupy courses to write CUDA C GPU kernels). Note: we do not describe these notebooks in the IUS short course video.
 - `cfg` - configuration files for your Conda environment and Docker images,
 - `utils` - utility Python scripts.
+
+### Video
+Video recordings of the lectures, exercises, and case-studies are available on-line:
+- [Vimeo playlist](https://vimeo.com/showcase/2022-us-gpu-short-course)
+- [YouTube playlist](https://www.youtube.com/playlist?list=PLTXwDWOjJ0Xeisir2sL3RxkC1RHpMmFbG)
+
+*Note: slides have been updated for 2022, while most of the recordings are from 2021.*
+
 
 ## Organization
 The short-course is organized by [us4us Ltd.](http://us4us.eu/), [IPPT PAN](http://www.ippt.pan.pl/en/), and [LITMUS, University of Waterloo](https://lit-mus.org/about/). The pre-recorded lectures are available for IUS "Ultrasound Signal Processing with GPUs — Introduction to Parallel Programming" short-course participants.
@@ -177,7 +186,7 @@ sudo docker cp gpu_course:/home/student/gpu-short-course/exercises/cupy/1_CUDA_p
 
 
 ## Team
-The course is presented by Dr Marcin Lewandowski, Piotr Jarosik and Billy Yiu.
+The course is presented by Dr Marcin Lewandowski, Piotr Jarosik and Dr Billy Yiu.
 
 Course support team includes: Ziemowit Klimonda, Mateusz Walczak, Piotr Karwat and Julia Lewandowska.
 
