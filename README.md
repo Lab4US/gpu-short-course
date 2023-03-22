@@ -1,11 +1,20 @@
 # IUS GPU short-course
 
-This is a repository for the “Digital Signal Processing with GPUs — Introduction to Parallel Programming” short-course.
-The course overview is [here (PDF)](slides/US-GPU-short-course-info.pdf)
+This is a repository for the “Ultrasound/Digital Signal Processing with GPUs — Introduction to Parallel Programming” short-course.
+The course overview is [here (PDF)](slides/US-GPU-short-course-info.pdf).
 
+**The course has been originally prepared and presented at the IEEE International Ultrasonic Symposium (IUS) in 2021.**
 
 *Note: To be informed about any changes in the future, you can press the "Star" and "Watch" buttons, which you can find in the upper right corner. Thanks!*
 
+## Additional/Specific Info 
+* PLANNED: Short-course @ [IUS-2023 (September 2023)](https://2023.ieee-ius.org/)
+* [Short-course @ TIB PAN (May 2023)](2023-TIB-DSP-GPU.md)
+* Short-course @ [IUS-2022 (October 2022)](https://2022.ieee-ius.org/short-courses/)
+* Short-course @ [IUS-2021 (September 2021)](https://2021.ieee-ius.org/short-courses/)
+* Short-course @ [Biocentrum Ochota (June 2021)](http://www.biocentrumochota.pan.pl/)
+
+<hr>
 
 ## Contents
 - `slides`: decks of slides for the presentation,
@@ -97,12 +106,9 @@ You should see an output similar to the one below:
         http://localhost:8888/lab?token=ff2ac4b0004ce179455a5e48b24defd541a0869aee7fe33d
      or http://127.0.0.1:8888/lab?token=ff2ac4b0004ce179455a5e48b24defd541a0869aee7fe33d
 [I 2021-08-26 18:28:14.352 LabApp] Build is up to date
-
-
 ```
 
 10. Open one of the exercise notebooks with solutions and run all cells to test if everything works correctly.
-
 
 ### Option #2: Docker image (Linux x64 only)
 
@@ -117,7 +123,6 @@ Then just run the following command in Linux:
 ``` 
 sudo docker run -p 8888:8888  -it --gpus all --name gpu_course us4useu/ius_gpu_short_course:2.0
 ```
-
 
 You should see an output similar to the one below:
 ```
@@ -177,21 +182,22 @@ Now, copy and paste the Jupyter Lab URL (`http://127.0.0.1:8888/lab?token=1f048e
 
 To stop the container: just press CTRL + C, or run `docker stop gpu_course`. To start the container again, use `docker start -i gpu_course`.
 
-
 To access docker container data (e.g. NVVP report results), you can use `docker cp` command, for example:
 
 ```
 sudo docker cp gpu_course:/home/student/gpu-short-course/exercises/cupy/1_CUDA_programming_model/solutions/nvvp_example.nvvp .
 ```
 
-
 ## Team
 The course is presented by Dr Marcin Lewandowski, Piotr Jarosik and Dr Billy Yiu.
 
 Course support team includes: Ziemowit Klimonda, Mateusz Walczak, Piotr Karwat and Julia Lewandowska.
 
+*This short-course is a part of the [Lab4US.eu](https://lab4us.eu) initiative*
+[![Lab4US](figs/Lab4US-banner-EN-800.png)](https://lab4us.eu)
+
 ## License
-Materials for the short-course „Digital Signal Processing with GPUs — Introduction to Parallel Programming” are licensed by us4us Ltd. and IPPT PAN under the Creative Commons Attribution-NonCommercial 4.0 International License.
+Materials for the short-course „Digital Signal Processing with GPUs — Introduction to Parallel Programming” are licensed by us4us Ltd. under the Creative Commons Attribution-NonCommercial 4.0 International License.
 Some slides and examples are borrowed from the course „The GPU Teaching Kit” that is licensed by NVIDIA and the University of Illinois under the Creative Commons Attribution-NonCommercial 4.0 International License.
 
 ![CC BY NC](https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc.png "CC BY NC")
