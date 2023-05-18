@@ -104,7 +104,7 @@ def test_convolve_const(func, h):
     print("All tests passed.")
 
         
-def benchmark_convolve_const(func, h, n=100, x_size=2**20):
+def benchmark_convolve_const(func, h, n=100, x_size=2**20, precision_decimal=4):
     import time
     times = []
     for i in range(n):
@@ -114,7 +114,7 @@ def benchmark_convolve_const(func, h, n=100, x_size=2**20):
         end = time.time()
 
         cpu_result = np.convolve(x, h, mode='same')
-        np.testing.assert_almost_equal(result, cpu_result, decimal=4)
+        np.testing.assert_almost_equal(result, cpu_result, decimal=precision_decimal)
         times.append(end-start)
     print("Benchmark result: ")
     print(f"Average processing time: " 
