@@ -5,10 +5,12 @@ The course overview is [here (PDF)](slides/US-GPU-short-course-info.pdf).
 
 **The course has been originally prepared and presented at the IEEE International Ultrasonic Symposium (IUS) in 2021.**
 
+**Next, it has been revised and extended for the IUS 2022 and 2023!**
+
 *Note: To be informed about any changes in the future, you can press the "Star" and "Watch" buttons, which you can find in the upper right corner. Thanks!*
 
 ## Additional/Specific Info 
-* PLANNED: Short-course @ [IUS-2023 (September 2023)](https://2023.ieee-ius.org/)
+* [Short-course @ IUS-2023 (1 SEP 2023)](2023-IUS-US-GPU.md)
 * [Short-course @ TIB PAN (May 2023)](2023-TIB-DSP-GPU.md)
 * Short-course @ [IUS-2022 (October 2022)](https://2022.ieee-ius.org/short-courses/)
 * Short-course @ [IUS-2021 (September 2021)](https://2021.ieee-ius.org/short-courses/)
