@@ -29,7 +29,7 @@ The course overview is [here (PDF)](slides/US-GPU-short-course-info.pdf).
   - `numba`: a list of exercise notebooks that use the Numba package to communicate with the GPU. The notebooks are from the older edition of the course and may be useful in case you are not familiar with C language (which is required in cupy courses to write CUDA C GPU kernels). Note: we do not describe these notebooks in the IUS short course video.
 - `cfg` - configuration files for your Conda environment and Docker images,
 - `utils` - utility Python scripts,
-- Tensorflow2TensorRTDemo_IUS2023 -- Tensorflow to ONNX format example, with TensorRT processing, IUS 2023.  
+- `Tensorflow2TensorRTDemo_IUS2023` - Tensorflow to ONNX format example, with TensorRT processing, IUS 2023.  
 
 ### Video
 Video recordings of the lectures, exercises, and case-studies are available on-line:
