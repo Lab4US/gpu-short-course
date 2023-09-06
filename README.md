@@ -9,6 +9,9 @@ The course overview is [here (PDF)](slides/US-GPU-short-course-info.pdf).
 
 ## Additional/Specific Info 
 * [Short-course @ IUS-2023 (1 SEP 2023)](2023-IUS-US-GPU.md)
+  * [CUDA refresher](https://github.com/Lab4US/gpu-short-course/blob/main/slides/ius-2023/IUS-2023-US-GPU-CUDA-refresher.pdf)
+  * [CUDA by example: delay and sum](https://github.com/Lab4US/gpu-short-course/blob/main/slides/ius-2023/cuda_by_example_delay_and_sum.pdf) 
+  * [Real-Time Speed of Sound Estimation and CNN Inferencing Using GPU](https://github.com/Lab4US/gpu-short-course/blob/main/slides/ius-2023/IUS-2023-US-GPU.pdf) 
 * [Short-course @ TIB PAN (May 2023)](2023-TIB-DSP-GPU.md)
 * Short-course @ [IUS-2022 (October 2022)](https://2022.ieee-ius.org/short-courses/)
 * Short-course @ [IUS-2021 (September 2021)](https://2021.ieee-ius.org/short-courses/)
