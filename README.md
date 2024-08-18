@@ -1,13 +1,14 @@
-# IUS GPU short-course
+# IUS-2024 GPU short-course
 
 This is a repository for the “Ultrasound/Digital Signal Processing with GPUs — Introduction to Parallel Programming” short-course.
 The course overview is [here (PDF)](slides/US-GPU-short-course-info.pdf).
 
-**The course has been originally prepared and presented at the IEEE International Ultrasonic Symposium (IUS) in 2021 Next, it has been revised and extended for the IUS-2022 and IUS-2023!**
+**The course has been originally prepared and presented at the IEEE International Ultrasonic Symposium (IUS) 2021. Next, it has been revised and extended for the IUS-2022, IUS-2023, and now IUS-2024**
 
 *Note: To be informed about any changes in the future, you can press the "Star" and "Watch" buttons, which you can find in the upper right corner. Thanks!*
 
 ## Additional/Specific Info 
+* [Short-course @ IUS-2024 (22 SEP 2024)](2024-IUS-US-GPU.md)
 * [Short-course @ IUS-2023 (1 SEP 2023)](2023-IUS-US-GPU.md)
   * [CUDA refresher](https://github.com/Lab4US/gpu-short-course/blob/main/slides/ius-2023/IUS-2023-US-GPU-CUDA-refresher.pdf)
   * [CUDA by example: delay and sum](https://github.com/Lab4US/gpu-short-course/blob/main/slides/ius-2023/cuda_by_example_delay_and_sum.pdf) 
@@ -20,16 +21,17 @@ The course overview is [here (PDF)](slides/US-GPU-short-course-info.pdf).
 <hr>
 
 ## Contents
-- `slides`: decks of slides for the presentation,
-- `exercises`: Jupyter notebooks with CUDA code examples to run,
-  - `cupy`: a list of exercise notebooks that use the CuPy package to communicate with the GPU. **These are the notebooks we use in the IUS short course video**. Each subdirectory contains the following files and directories:
-    - `*.ipynb`: exercise jupyter notebooks,
-    - `*.cc`: CUDA C kernel source files,
-    - subdirectory `solutions`: solutions to the exercises (only in the case of notebooks with some exercises). 
-  - `numba`: a list of exercise notebooks that use the Numba package to communicate with the GPU. The notebooks are from the older edition of the course and may be useful in case you are not familiar with C language (which is required in cupy courses to write CUDA C GPU kernels). Note: we do not describe these notebooks in the IUS short course video.
-- `cfg` - configuration files for your Conda environment and Docker images,
-- `utils` - utility Python scripts,
-- `Tensorflow2TensorRTDemo_IUS2023` - Tensorflow to ONNX format example, with TensorRT processing, IUS 2023.  
+- `slides` - decks of slides for the presentation
+- `exercises` - Jupyter notebooks with CUDA code examples to run
+  - `cupy` - a list of exercise notebooks that use the CuPy package to communicate with the GPU. **These are the notebooks we use in the IUS short course video**. Each subdirectory contains the following files and directories:
+    - `*.ipynb`: exercise jupyter notebooks
+    - `*.cc`: CUDA C kernel source files
+    - subdirectory `solutions`: solutions to the exercises (only in the case of notebooks with some exercises)
+  - `numba` - a list of exercise notebooks that use the Numba package to communicate with the GPU. The notebooks are from the older edition of the course and may be useful in case you are not familiar with C language (which is required in cupy courses to write CUDA C GPU kernels). Note: we do not describe these notebooks in the IUS short course video
+- `demos` - demos/examples/use-cases for show and self-study:
+  - `Tensorflow2TensorRTDemo_IUS2023` - Tensorflow to ONNX format example, with TensorRT processing, IUS-2023
+- `cfg` - configuration files for your Conda environment and Docker images
+- `utils` - utility Python scripts
 
 ### Video
 Video recordings of the lectures, exercises, and case-studies are available on-line:
@@ -37,7 +39,6 @@ Video recordings of the lectures, exercises, and case-studies are available on-l
 - [YouTube playlist](https://www.youtube.com/playlist?list=PLTXwDWOjJ0Xeisir2sL3RxkC1RHpMmFbG)
 
 *Note: slides have been updated for 2022, while most of the recordings are from 2021.*
-
 
 ## Organization
 The short-course is organized by [us4us Ltd.](http://us4us.eu/), [IPPT PAN](http://www.ippt.pan.pl/en/), and [LITMUS, University of Waterloo](https://lit-mus.org/about/). The pre-recorded lectures are available for IUS "Ultrasound Signal Processing with GPUs — Introduction to Parallel Programming" short-course participants.
