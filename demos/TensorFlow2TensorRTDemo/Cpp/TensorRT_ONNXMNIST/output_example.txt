@@ -1,0 +1,78 @@
+[08/24/2023-09:35:44] [I] Parsing ONNX model to create TRT inference engine
+[08/24/2023-09:35:45] [I] [TRT] [MemUsageChange] Init CUDA: CPU +338, GPU +0, now: CPU 232258, GPU 1356 (MiB)
+[08/24/2023-09:35:51] [I] [TRT] [MemUsageChange] Init builder kernel library: CPU +1341, GPU +264, now: CPU 234998, GPU 1620 (MiB)
+[08/24/2023-09:35:51] [W] [TRT] CUDA lazy loading is not enabled. Enabling it can significantly reduce device memory usage and speed up TensorRT initialization. See "Lazy Loading" section of CUDA documentation https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#lazy-loading
+[08/24/2023-09:35:51] [I] [TRT] ----------------------------------------------------------------
+[08/24/2023-09:35:51] [I] [TRT] Input filename:   ../sample_mnist_data/simple_nn.onnx
+[08/24/2023-09:35:51] [I] [TRT] ONNX IR version:  0.0.8
+[08/24/2023-09:35:51] [I] [TRT] Opset version:    15
+[08/24/2023-09:35:51] [I] [TRT] Producer name:    tf2onnx
+[08/24/2023-09:35:51] [I] [TRT] Producer version: 1.14.0 8f8d49
+[08/24/2023-09:35:51] [I] [TRT] Domain:
+[08/24/2023-09:35:51] [I] [TRT] Model version:    0
+[08/24/2023-09:35:51] [I] [TRT] Doc string:
+[08/24/2023-09:35:51] [I] [TRT] ----------------------------------------------------------------
+[08/24/2023-09:35:51] [W] [TRT] onnx2trt_utils.cpp:374: Your ONNX model has been generated with INT64 weights, while TensorRT does not natively support INT64. Attempting to cast down to INT32.
+[08/24/2023-09:35:51] [I] [TRT] Graph optimization time: 0.0009823 seconds.
+[08/24/2023-09:35:51] [I] [TRT] Local timing cache in use. Profiling results in this builder pass will not be stored.
+[08/24/2023-09:35:53] [I] [TRT] Detected 1 inputs and 1 output network tensors.
+[08/24/2023-09:35:53] [I] [TRT] Total Host Persistent Memory: 16368
+[08/24/2023-09:35:53] [I] [TRT] Total Device Persistent Memory: 0
+[08/24/2023-09:35:53] [I] [TRT] Total Scratch Memory: 0
+[08/24/2023-09:35:53] [I] [TRT] [MemUsageStats] Peak memory usage of TRT CPU/GPU memory allocators: CPU 0 MiB, GPU 4 MiB
+[08/24/2023-09:35:53] [I] [TRT] [BlockAssignment] Started assigning block shifts. This will take 4 steps to complete.
+[08/24/2023-09:35:53] [I] [TRT] [BlockAssignment] Algorithm ShiftNTopDown took 0.7148ms to assign 2 blocks to 4 nodes requiring 1024 bytes.
+[08/24/2023-09:35:53] [I] [TRT] Total Activation Memory: 1024
+[08/24/2023-09:35:53] [I] [TRT] [MemUsageChange] TensorRT-managed allocation in building engine: CPU +0, GPU +4, now: CPU 0, GPU 4 (MiB)
+[08/24/2023-09:35:53] [I] [TRT] Loaded engine size: 2 MiB
+[08/24/2023-09:35:53] [I] [TRT] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +0, now: CPU 0, GPU 0 (MiB)
+[08/24/2023-09:35:53] [I] [TRT] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +0, now: CPU 0, GPU 0 (MiB)
+[08/24/2023-09:35:53] [W] [TRT] CUDA lazy loading is not enabled. Enabling it can significantly reduce device memory usage and speed up TensorRT initialization. See "Lazy Loading" section of CUDA documentation https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#lazy-loading
+[08/24/2023-09:35:53] [I] inputH:28
+[08/24/2023-09:35:53] [I] inputW:28
+[08/24/2023-09:35:53] [I] pgmPath:../sample_mnist_data/2.pgm
+[08/24/2023-09:35:53] [I] Input:
+[08/24/2023-09:35:53] [I] @@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@*.  .*@@@@@@@@@@@
+@@@@@@@@@@*.     +@@@@@@@@@@
+@@@@@@@@@@. :#+   %@@@@@@@@@
+@@@@@@@@@@.:@@@+  +@@@@@@@@@
+@@@@@@@@@@.:@@@@: +@@@@@@@@@
+@@@@@@@@@@=%@@@@: +@@@@@@@@@
+@@@@@@@@@@@@@@@@# +@@@@@@@@@
+@@@@@@@@@@@@@@@@* +@@@@@@@@@
+@@@@@@@@@@@@@@@@: +@@@@@@@@@
+@@@@@@@@@@@@@@@@: +@@@@@@@@@
+@@@@@@@@@@@@@@@* .@@@@@@@@@@
+@@@@@@@@@@%**%@. *@@@@@@@@@@
+@@@@@@@@%+.  .: .@@@@@@@@@@@
+@@@@@@@@=  ..   :@@@@@@@@@@@
+@@@@@@@@: *@@:  :@@@@@@@@@@@
+@@@@@@@%  %@*    *@@@@@@@@@@
+@@@@@@@%  ++  ++ .%@@@@@@@@@
+@@@@@@@@-    +@@- +@@@@@@@@@
+@@@@@@@@=  :*@@@# .%@@@@@@@@
+@@@@@@@@@+*@@@@@%.  %@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+[08/24/2023-09:35:53] [I] Mean inference over 20 samples on the GPU = 0.1603 ms
+[08/24/2023-09:35:53] [I] Output:
+[08/24/2023-09:35:53] [I]  Prob 0  0.0000 Class 0:
+[08/24/2023-09:35:53] [I]  Prob 1  0.0000 Class 1:
+[08/24/2023-09:35:53] [I]  Prob 2  0.9996 Class 2: **********
+[08/24/2023-09:35:53] [I]  Prob 3  0.0002 Class 3:
+[08/24/2023-09:35:53] [I]  Prob 4  0.0000 Class 4:
+[08/24/2023-09:35:53] [I]  Prob 5  0.0000 Class 5:
+[08/24/2023-09:35:53] [I]  Prob 6  0.0000 Class 6:
+[08/24/2023-09:35:53] [I]  Prob 7  0.0000 Class 7:
+[08/24/2023-09:35:53] [I]  Prob 8  0.0001 Class 8:
+[08/24/2023-09:35:53] [I]  Prob 9  0.0000 Class 9:
+[08/24/2023-09:35:53] [I]
+
+Cpp\TensorRT_ONNXMNIST\x64\Release\TensorRT_ONNX_MNIST.exe (process 4288) exited with code 1.
