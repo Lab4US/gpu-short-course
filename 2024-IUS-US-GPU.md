@@ -17,6 +17,8 @@ If you have any doubts or questions before or during the course, please don't he
 
 **3. New/modified materials**
 <!-- TODO: -->
+- Updated slides of ["CUDA Refresher" (PDF)](slides/ius-2024/IUS-2024-US-GPU-CUDA-refresher.pdf).
+
 - `demos/xxx` - demos/examples/use-cases ...
 
 
