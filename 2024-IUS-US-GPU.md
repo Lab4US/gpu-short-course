@@ -20,7 +20,7 @@ If you have any doubts or questions before or during the course, please don't he
 - `demos/xxx` - demos/examples/use-cases ...
 
 
-_We look forward to meeting all of you at the course!_
+_We look forward to meeting ALL of you at the course!_
 
 <hr/>
 
