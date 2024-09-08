@@ -18,7 +18,7 @@ If you have any doubts or questions before or during the course, please don't he
 **3. New/modified materials**
 <!-- TODO: -->
 - Updated slides of ["CUDA Refresher" (PDF)](slides/ius-2024/IUS-2024-US-GPU-CUDA-refresher.pdf).
-- Updated slides of ["CUDA by example, delay and sum"](slides/ius-2023/cuda_by_example_delay_and_sum.pdf) **Will be updated soon.**
+- Updated slides of ["CUDA by example, delay and sum"](slides/ius-2023/cuda_by_example_delay_and_sum.pdf). **Will be updated soon.**
 
 _We look forward to meeting ALL of you at the course!_
 
