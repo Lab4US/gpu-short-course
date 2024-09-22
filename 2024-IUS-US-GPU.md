@@ -16,9 +16,9 @@ During the course, we will briefly refresh the fundamentals of GPU programming, 
 If you have any doubts or questions before or during the course, please don't hesitate to reach out to us via email. We are here to support you throughout the learning journey and want to ensure that you have a productive and enjoyable experience.
 
 **3. New/modified materials**
-<!-- TODO: -->
 - Updated slides of ["CUDA Refresher" (PDF)](slides/ius-2024/IUS-2024-US-GPU-CUDA-refresher.pdf).
-- Updated slides of ["CUDA by example, delay and sum"](slides/ius-2023/cuda_by_example_delay_and_sum.pdf). **Will be updated soon.**
+- Updated slides of ["CUDA by example -- Delay and Sum"](slides/ius-2024/IUS-2024-CUDA-Delay-and-Sum.pdf). 
+- New slides: ["CUDA Streams and frameworks"](slides/ius-2024/IUS-2024-GPU-CUDA-Streams.pdf).
 
 _We look forward to meeting ALL of you at the course!_
 
