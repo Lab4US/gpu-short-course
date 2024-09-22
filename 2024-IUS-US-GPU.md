@@ -17,6 +17,7 @@ If you have any doubts or questions before or during the course, please don't he
 
 **3. New/modified materials**
 - Updated slides of ["CUDA Refresher" (PDF)](slides/ius-2024/IUS-2024-US-GPU-CUDA-refresher.pdf).
+- Updated slides of ["GPU-based Ultrasound Signal Processing"](slides/ius-2024/IUS-2024-US-GPU.pdf).
 - Updated slides of ["CUDA by example -- Delay and Sum"](slides/ius-2024/IUS-2024-CUDA-Delay-and-Sum.pdf). 
 - New slides: ["CUDA Streams and frameworks"](slides/ius-2024/IUS-2024-GPU-CUDA-Streams.pdf).
 
